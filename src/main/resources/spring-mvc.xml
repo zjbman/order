@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:task="http://www.springframework.org/schema/task" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-4.1.xsd   
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+        http://www.springframework.org/schema/task  
+        http://www.springframework.org/schema/task/spring-task-3.2.xsd">  
+  
+    <!-- 自动扫描@Controller注入为bean -->  
+    <context:component-scan base-package="com.paper.controller" />
+    <!-- 以下为SpringMVC配置 -->  
+    <mvc:annotation-driven>  
+        <!-- 返回json数据，@response使用 -->  
+        <mvc:message-converters register-defaults="true">  
+            <bean  
+                class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+                <property name="supportedMediaTypes">  
+                    <list>  
+                        <value>text/html;charset=UTF-8</value>  
+                        <value>application/json;charset=UTF-8</value>  
+                    </list>  
+                </property>  
+  
+            </bean>  
+        </mvc:message-converters>  
+    </mvc:annotation-driven>  
+    
+  	<!-- 拦截器配置 -->
+	<!--<mvc:interceptors>-->
+	 <!--<mvc:interceptor>  -->
+        <!--<mvc:mapping path="/**"/>  -->
+        <!--<mvc:exclude-mapping path="/goLoginning.html"/> -->
+        <!--<mvc:exclude-mapping path="/pgc/template.html"/>-->
+		<!--<bean class="inport.com.authority.AuthorityAnnotationInterceptor"/>-->
+		<!--</mvc:interceptor>  -->
+	<!--</mvc:interceptors>-->
+	
+    <!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+    <bean
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+        <!--<property name="viewClass"  -->
+            <!--value="org.springframework.web.servlet.view.JstlView" />  -->
+        <property name="prefix" value="/WEB-INF/views/" /> <!--注意加views后还要“/”啊 啊 啊-->
+        <property name="suffix" value=".jsp" />
+    </bean>  
+    
+    <!--任务扫描注解 -->
+    <!--<task:annotation-driven />-->
+    <!--<context:component-scan base-package="com.paper.task"/>-->
+	<!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  -->
+        <!--<property name="maxUploadSize" value="1073741824" />  -->
+        <!--&lt;!&ndash; 设置在文件上传时允许写到内存中的最大值，以字节为单位计算，默认是10240 &ndash;&gt;-->
+        <!--&lt;!&ndash; 但是经实验，上传文件大小若小于此参数，则不会生成临时文件，很尴尬，故改为2048 &ndash;&gt;-->
+        <!--<property name="maxInMemorySize" value="1" />-->
+    <!--</bean>-->
+</beans>  
