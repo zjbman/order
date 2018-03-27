@@ -61,6 +61,7 @@
     </session-config>
 
     <!-- 没有配置好spring-shiro文件，不能打开下面的配置内容！！！会报错的！！！！-->
+    <!-- spring-shiro.xml 中的 shiroFilter 名字和 web.xml 文件中的 shiroFilter是对应的，必须一致。-->
     <filter>
         <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

@@ -6,13 +6,13 @@
         ">
 
 
-    <!-- Realm实现 -->
+    <!-- 1 自定义 realm  -->
     <!-- 继承自AuthorizingRealm的自定义Realm,
-    即指定Shiro验证用户登录的类为自定义的ShiroDbRealm.java -->
+    即指定Shiro验证用户登录的类为自定义的ShiroDbRealm -->
     <bean id="myRealm" class="com.paper.shiro.MyRealm"/>
 
 
-    <!-- 安全管理器 -->
+    <!-- 2 安全管理器 -->
     <!-- Shiro默认会使用Servlet容器的Session,
     可通过sessionMode属性来指定使用Shiro原生Session -->
     <!-- 即<property name="sessionMode" value="native"/>,
@@ -24,26 +24,37 @@
     </bean>
 
 
-    <!-- Shiro的Web过滤器 -->
+    <!-- 3 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor"
+          class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+
+
+    <!-- 4 Shiro的Web过滤器 -->
     <!-- Shiro主过滤器本身功能十分强大,其强大之处就在于它支持
     任何基于URL路径表达式的、自定义的过滤器的执行 -->
     <!-- Web应用中,Shiro可控制的Web请求必须经过Shiro主过滤器的拦截,
     Shiro对基于Spring的Web应用提供了完美的支持 -->
+    <!-- spring-shiro.xml 中的 shiroFilter 名字和 web.xml 文件中的 shiroFilter是对应的，必须一致。-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-        <!-- Shiro的核心安全接口,这个属性是必须的 -->
+        <!-- (1)Shiro的核心安全接口,这个属性是必须的 -->
         <property name="securityManager" ref="securityManager"/>
-        <!-- 要求登录时的链接(可根据项目的URL进行替换),
+
+        <!-- (2)要求登录时的链接(可根据项目的URL进行替换),
         非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面 -->
-        <property name="loginUrl" value="/"/>
-        <!-- 登录成功后要跳转的连接(本例中此属性用不到,
+        <property name="loginUrl" value="/login.jsp"/>
+
+        <!-- (3)登录成功后要跳转的连接(本例中此属性用不到,
         因为登录成功后的处理逻辑在LoginController里硬编码为main.jsp了) -->
         <!--<property name="successUrl" value="/WEB-INF/views/main.jsp"/>-->
-        <!-- 用户访问未对其授权的资源时,所显示的连接 -->
+
+        <!-- (4)用户访问未对其授权的资源时,所显示的连接 -->
         <!-- 若想更明显的测试此属性可以修改它的值,如unauthor.jsp,
         然后用[玄玉]登录后访问/admin/listUser.jsp就看见浏览器
         会显示unauthor.jsp -->
-        <property name="unauthorizedUrl" value="/"/>
-        <!-- Shiro连接约束配置,即过滤链的定义 -->
+        <property name="unauthorizedUrl" value="/WEB-INF/views//unauthorized.jsp"/>
+
+        <!-- (5)Shiro连接约束配置,即过滤链的定义 -->
         <!-- 此处可配合我的这篇文章来理解各个过滤连的作用
         http://blog.csdn.net/jadyer/article/details/12172839 -->
         <!-- 下面value值的第一个'/'代表的路径是相对于
@@ -60,14 +71,31 @@
                 /main**=authc
                 /user/info**=authc
                 /admin/listUser**=authc,perms[admin:manage]
+
+                <!-- 对静态资源设置匿名访问 -->
+                <!--/resources/** = anon-->
+                <!--/login = anon-->
+                <!-- /** = authc 所有url都必须认证通过才可以访问-->
+                <!--/** = authc-->
+
+                <!--/admins/**=anon               # 表示该 uri 可以匿名访问
+                    /admins/**=auth               # 表示该 uri 需要认证才能访问
+                    /admins/**=authcBasic         # 表示该 uri 需要 httpBasic 认证
+                    /admins/**=perms[user:add:*]  # 表示该 uri 需要认证用户拥有 user:add:* 权限才能访问
+                    /admins/**=port[8081]         # 表示该 uri 需要使用 8081 端口
+                    /admins/**=rest[user]         # 相当于 /admins/**=perms[user:method]，其中，method 表示  get、post、delete 等
+                    /admins/**=roles[admin]       # 表示该 uri 需要认证用户拥有 admin 角色才能访问
+                    /admins/**=ssl                # 表示该 uri 需要使用 https 协议
+                    /admins/**=user               # 表示该 uri 需要认证或通过记住我认证才能访问
+                    /logout=logout                # 表示注销,可以当作固定配置-->
+
+
+
             </value>
         </property>
     </bean>
 
 
-    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
-    <bean id="lifecycleBeanPostProcessor"
-          class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
 
     <!-- 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),
