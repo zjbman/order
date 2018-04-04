@@ -1,15 +1,12 @@
 package com.paper.controller;
 
-import com.paper.service.AccountService;
 import com.paper.util.MD5;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -19,9 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
  **/
 @Controller
 public class LoginController {
-    @Autowired
-    AccountService accountService;
-
 
     @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public String Login(@RequestParam("username") String username,
@@ -31,10 +25,49 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
+            if (subject.isAuthenticated()) {
+            /* 认证成功后*/
+                System.out.println("用户 " + subject.getPrincipal() + " 登陆成功！");
+
+            /* 判断当前用户什么角色*/
+                if (subject.hasRole("管理员")) {
+                    System.out.println("用户 " + subject.getPrincipal() + " 角色是 管理员！");
+
+                } else if (subject.hasRole("商家")) {
+                    System.out.println("用户 " + subject.getPrincipal() + " 角色是 商家！");
+
+                } else if (subject.hasRole("消费者")) {
+                    System.out.println("用户 " + subject.getPrincipal() + " 角色是 消费者！");
+
+                } else {
+                    System.out.println("用户 " + subject.getPrincipal() + " 角色是 未知！");
+                }
+
+            /* 判断当前用户什么权限*/
+                if (subject.isPermitted("管理员权限")) {
+                    System.out.println("用户 " + subject.getPrincipal() + " 权限是 管理员权限！");
+
+                } else if (subject.isPermitted("商家权限")) {
+                    System.out.println("用户 " + subject.getPrincipal() + " 权限是 商家权限！");
+
+                } else if (subject.isPermitted("消费者权限")) {
+                    System.out.println("用户 " + subject.getPrincipal() + " 权限是 消费者权限！");
+
+                } else {
+                    System.out.println("用户 " + subject.getPrincipal() + " 权限 未知！");
+                }
+
+            /* 成功跳转到主界面*/
+                return "main";
+            } else {
+                model.addAttribute("loginFail", "账号不存在或密码错误!");
+            /* 重新到登录界面*/
+                return "relogin";
+            }
 
         } catch (IncorrectCredentialsException ice) {
             // 捕获密码错误异常
-            System.out.println("账户密码 " + token.getPrincipal()  + " 不正确!");
+            System.out.println("账户密码 " + token.getPrincipal() + " 不正确!");
 
         } catch (UnknownAccountException uae) {
             // 捕获未知用户名异常
@@ -42,35 +75,13 @@ public class LoginController {
 
         } catch (ExcessiveAttemptsException eae) {
             // 捕获错误登录过多的异常
-            System.out.println("用户名 " + token.getPrincipal() + " 被锁定 !");
+            System.out.println("用户名 " + token.getPrincipal() + " 错误登录过多 !");
 
         } catch (LockedAccountException lae) {
             System.out.println("用户名 " + token.getPrincipal() + " 被锁定 !");
         }
-
-
-        if(subject.isAuthenticated()){
-            /* 认证成功后*/
-            System.out.println("用户 " + subject.getPrincipal() + " 登陆成功！");
-
-            //测试角色
-            System.out.println("是否拥有 manager 角色：" + subject.hasRole("manager"));
-
-            //测试权限
-            System.out.println("是否拥有 user:create 权限" + subject.isPermitted("user:create"));
-
-        }else{
-            System.out.println("用户 " + username + "， token无效");
-        }
-
-
-
-
-        System.out.println("username == " + username);
-        System.out.println("password == " + password);
-
-        return "main";
+        model.addAttribute("loginFail", "账号不存在或密码错误!");
+        return "relogin";
     }
-
-
 }
+

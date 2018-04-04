@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-03-24 20:51:50
+Date: 2018-04-04 17:12:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,9 +36,9 @@ CREATE TABLE `account` (
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('1', 'admin', 'admin', '管理员zjb', 'zjbman@sina.com', '825303675', '2018-03-23', '2018-03-23');
-INSERT INTO `account` VALUES ('2', 'zhang', 'zhang', '商家', 'jbandxs@sina.com', '825303675', '2018-03-23', '2018-03-23');
-INSERT INTO `account` VALUES ('3', 'li', 'li', '游客', '825303675@qq.com', '825303675', '2018-03-23', '2018-03-23');
+INSERT INTO `account` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '管理员zjb', 'zjbman@sina.com', '825303675', '2018-03-23', '2018-03-23');
+INSERT INTO `account` VALUES ('2', 'zhang', 'd0cd2693b3506677e4c55e91d6365bff', '商家', 'jbandxs@sina.com', '825303675', '2018-03-23', '2018-03-23');
+INSERT INTO `account` VALUES ('3', 'li', 'd70c1e5d44de8a9150eb91ecff563578', '消费者', '825303675@qq.com', '825303675', '2018-03-23', '2018-03-23');
 
 -- ----------------------------
 -- Table structure for account_role_mapping
@@ -58,7 +58,7 @@ CREATE TABLE `account_role_mapping` (
 -- ----------------------------
 INSERT INTO `account_role_mapping` VALUES ('1', '1', 'admin', '1', '管理员zjb');
 INSERT INTO `account_role_mapping` VALUES ('2', '2', 'zhang', '2', '商家');
-INSERT INTO `account_role_mapping` VALUES ('3', '3', 'li', '3', '游客');
+INSERT INTO `account_role_mapping` VALUES ('3', '3', 'li', '3', '消费者');
 
 -- ----------------------------
 -- Table structure for authority
@@ -76,7 +76,7 @@ CREATE TABLE `authority` (
 -- ----------------------------
 INSERT INTO `authority` VALUES ('1', '管理员权限', '最高权限');
 INSERT INTO `authority` VALUES ('2', '商家权限', '第二权限');
-INSERT INTO `authority` VALUES ('3', '游客权限', '最低权限');
+INSERT INTO `authority` VALUES ('3', '消费者权限', '最低权限');
 
 -- ----------------------------
 -- Table structure for role
@@ -94,7 +94,7 @@ CREATE TABLE `role` (
 -- ----------------------------
 INSERT INTO `role` VALUES ('1', '管理员', '管理员权限，最高权限');
 INSERT INTO `role` VALUES ('2', '商家', '商家权限，低一级的权限，例如不可以添加、删除、修改商家');
-INSERT INTO `role` VALUES ('3', '游客', '游客权限，最低的权限，只拥有浏览功能');
+INSERT INTO `role` VALUES ('3', '消费者', '消费者权限，最低的权限，只拥有浏览功能');
 
 -- ----------------------------
 -- Table structure for role_authority_mapping
@@ -114,4 +114,4 @@ CREATE TABLE `role_authority_mapping` (
 -- ----------------------------
 INSERT INTO `role_authority_mapping` VALUES ('1', '1', '1', '管理员', '管理员权限');
 INSERT INTO `role_authority_mapping` VALUES ('2', '2', '2', '商家', '商家权限');
-INSERT INTO `role_authority_mapping` VALUES ('3', '3', '3', '游客', '游客权限');
+INSERT INTO `role_authority_mapping` VALUES ('3', '3', '3', '消费者', '消费者权限');

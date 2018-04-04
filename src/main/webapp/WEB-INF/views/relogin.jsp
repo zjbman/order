@@ -23,7 +23,7 @@
 <body>
 <div id="main">
 
-    <form class="loginbox" id="loginForm" method="post" action="Login.html">
+    <form class="loginbox" id="loginForm" method="post" action="Login.html" onmousedown="showInfo()">
         <img src="static/img/logo.png" class="loginlogo">
         <h2>点菜系统管理后台</h2>
 
@@ -33,11 +33,11 @@
         <div class="inputbox"><label  id="lpwd"></label><input type="password" id="password" name="password" placeholder="密码"></div>
         <div class="handlepwd">
             <label ><input type="checkbox" id="rempwd">记住密码</label>
-
         </div>
-        <P style="color:blue;"><c:out value="${message}" /></P>
+        <div class="alert">
+            <h3 ><span style="color: #dc143c; ">${requestScope.loginFail}</span></h3>
+        </div>
         <input type="button" value="登录" class="sub" onclick="login()">
-        <%--<input type="button" value="登录" class="sub" onclick="javascript:void(document.getElementById('loginForm').submit())">--%>
     </form>
 
 </div>
@@ -48,6 +48,10 @@
     var pwdVal = pwdField.attr('placeholder');
     var pwdId = pwdField.attr('id');
     var pwdPlaceholder = $("#password");
+
+    function showInfo() {
+
+    }
 
     function login() {
 
