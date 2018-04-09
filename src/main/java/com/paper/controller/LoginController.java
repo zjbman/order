@@ -1,8 +1,10 @@
 package com.paper.controller;
 
+import com.paper.config.WebParam;
 import com.paper.util.MD5;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     @RequestMapping(value = "/Login", method = RequestMethod.POST)
-    public String Login(@RequestParam("username") String username,
+    public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password, Model model) {
         /* 对密码进行32位小写md5*/
         UsernamePasswordToken token = new UsernamePasswordToken(username, MD5.get32MD5(password));
@@ -58,7 +60,7 @@ public class LoginController {
                 }
 
             /* 成功跳转到主界面*/
-                return "main";
+                return "redirect:/Welcome.html";
             } else {
                 model.addAttribute("loginFail", "账号不存在或密码错误!");
             /* 重新到登录界面*/
@@ -83,5 +85,25 @@ public class LoginController {
         model.addAttribute("loginFail", "账号不存在或密码错误!");
         return "relogin";
     }
+
+    @RequestMapping(value = "/Welcome", method = RequestMethod.GET)
+    public String welcome() {
+        return "welcome";
+    }
+
+    @RequestMapping(value = "/LoginOut", method = RequestMethod.GET)
+    public String loginOut() {
+        /* 退出系统，返回重新登录界面，销毁session中用户的缓存*/
+        Subject subject = SecurityUtils.getSubject();
+        Session session = subject.getSession();
+        session.removeAttribute(WebParam.LOGIN_USER);
+        session.removeAttribute(WebParam.PERMISSION);
+
+        /* session清空*/
+        session.stop();
+        return "relogin";
+    }
+
+
 }
 

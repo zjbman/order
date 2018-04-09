@@ -1,5 +1,6 @@
 package com.paper.shiro;
 
+import com.paper.config.WebParam;
 import com.paper.entity.*;
 import com.paper.service.*;
 import org.apache.shiro.SecurityUtils;
@@ -69,6 +70,9 @@ public class MyRealm extends AuthorizingRealm {
             return null;
         }
 
+        /* 将当前登录的用户缓存到session中*/
+        setSession(WebParam.LOGIN_USER,account);
+
         /* 4.获取从数据库查询出来的用户密码*/
         String password = account.getPassWord();
 
@@ -132,14 +136,12 @@ public class MyRealm extends AuthorizingRealm {
                 return null;
             }
 
+            /* 将当前用户的权限放进session中*/
+            setSession(WebParam.PERMISSION,authority);
+
             /* 添加的权限信息是由自己自定义的， eg “管理员权限”，“商家权限”，“消费者权限”*/
             info.addStringPermission(authority.getAuthority());
 
-            //添加manager角色
-//            info.addRole("manager");
-            //添加权限
-//            info.addStringPermission("user:*");
-//            info.addStringPermission("department:*");
         }
 
         /* 4.返回AuthorizationInfo*/

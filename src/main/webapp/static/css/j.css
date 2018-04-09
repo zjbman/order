@@ -1,0 +1,173 @@
+table{
+  white-space:nowrap;
+}
+.form-control{
+  height:28px;
+}
+
+/* 页面标题 */
+.j-page-title{ 
+  	margin:10px 0;
+  	padding-bottom:9px;
+  	border-bottom: 1px solid #eee;
+  	font-size:20px;
+}
+
+/* 查询框 */
+.j-query-box{
+	border:none;
+  padding:0 15px;
+  border-radius:4px;
+  color: #31708f;
+  background-color: #d9edf7;
+}
+.j-query-box dl{
+  float:left;
+  width:40%;
+  min-width:210px;
+  max-width:290px;
+  padding:15px 0 15px 20px;
+  margin:0;
+}
+.j-query-box dl dd,.j-query-box dt{
+  float:left
+}
+.j-query-box dt{
+  min-width:75px;
+  vertical-align:middle;
+  height:28px;
+  line-height:28px;
+}
+.j-query-box dl dd{
+  width:195px;
+  vertical-align:middle;
+}
+.j-query-box dl dd input{
+  width:100%;
+}
+.j-query-box:after,.j-query-box dl:after,.clear:after{
+  content:"";
+  display:block;
+  clear:both;
+}
+.j-query-box .noMarginR1{
+  margin-right:0;
+}
+/* 查询按钮组盒子*/
+.j-btngroup {
+    padding: 10px;
+    padding-left: 0;
+}
+
+/* 双框日期组 */
+.j-dbdate{
+	padding:15px 5px;
+}
+.j-dbdate span{
+	padding:0 10px;
+		font-weight:bold;
+}
+.j-typespan{
+	cursor:pointer;
+}
+.j-dbdate i{
+	font-style:normal;
+	margin:0 10px;
+	color:#928989;
+}
+.j-dbdate i.on{
+	color:#31708f;
+	font-weight: bold;
+	cursor:pointer;
+}
+/* input框 */
+.j-input{
+  height:26px;
+  border:1px solid #95B8E7; 
+  border-radius: 4px;
+  cursor: text; 
+  outline: none;
+  padding-left:6px;
+  cursor:pointer;
+}
+
+/* 弹出框的表单table布局 */
+.tab-panal{
+  margin:auto;
+  width:auto;
+  min-width:290px;
+  width:80%;
+}
+.tab-page{
+  width:100%;
+  max-width:600px;
+}
+.tab-panal th{text-align:right; font-weight:normal;}
+.tab-panal td{ 
+  padding:8px 10px 10px 10px;
+  width:75%;
+  max-width:400px;
+}
+.tab-panal td input,.j-tabSelect{
+  border-radius:5px;
+  border:1px solid #95B8E7;
+  height:26px;
+  width:100%;
+  padding-left:8px;
+}
+.tab-panal td input[type="radio"]{
+  width:20px;
+  vertical-align:middle;
+  margin:0 5px 0 0;
+}
+
+
+
+/* 媒体查询 */
+@media screen and (max-width:500px){
+  .j-query-box dl{
+    width:99%;
+    margin-top:0;
+  }
+}
+@media (min-width: 768px){
+  .modal-dialog {
+      margin: 100px auto;
+  }
+  .tab-panal,.addtable{
+   margin-left:41px;
+  }
+  .addtable2{
+  margin-left:0;
+  }
+ 
+}
+.addtable{
+	width:80%;
+}
+.addtable2{
+	width:100%;
+}
+.addtable td,.addtable th{
+	padding:5px 10px;
+	border:1px solid #e2dbdb;
+	text-align:center;
+	font-weight:normal;
+	width:40%;
+}
+.addtable td:nth-child(3),.addtable th:nth-child(3){
+	width:28%;
+}
+.addtable td{
+	padding:10px;
+}
+.addtable td input{
+	width:100%;
+}
+.addtable2 td,.addtable2 th{
+	width:22%;
+}
+.addtable td:nth-child(4),.addtable th:nth-child(4){
+	width:19%;
+}
+ 

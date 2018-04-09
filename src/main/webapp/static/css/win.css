@@ -1,0 +1,83 @@
+*{margin:0;padding:0;}
+	#timeWin{padding:15px 10px}
+	#provinceWin{padding:10px 0 5px 30px}		
+.checkwrap{
+    position:relative;
+    margin-bottom:5px;
+    margin-left:11px;  
+    display:inline-block;
+    width:38px;  
+}
+.checkwrap2{
+   width:65px;
+   margin-left:7px;
+}
+.checkwrap font{
+	font-weight:normal;
+    color:#333;
+    margin-left:2px;
+}
+.checkwrap2 font{
+	font-size:14px;
+}
+.checkwrap input[type=checkbox] {  
+          visibility: hidden; 
+          width:14px 
+}  
+.checkwrap label {  
+    position:absolute;
+    cursor: pointer;    
+    width: 14px;  
+    height: 14px;  
+    top: 0;  
+    left: 0;  
+    background: #fff;  
+    border:1px solid #48a7ca;  
+    -moz-border-radius: 3px;      /* Gecko browsers */  
+    -webkit-border-radius: 3px;   /* Webkit browsers */  
+    border-radius:3px;            /* W3C syntax */  
+    box-sizing:border-box;
+    margin-top:5px;
+   
+}  
+.checkwrap label:after {  
+    opacity: 0;  
+    filter: "alpha(opacity=0)";   /* IE 8 */ 
+          filter: alpha(opacity=0);  /* IE 4-7 */ 
+    content: '';  
+    position: absolute;  
+    width: 9px;  
+    height: 5px;  
+    background: transparent;  
+    top: 2px;  
+    left: 1px;  
+    border: 2px solid #333;  
+    border-top: none;  
+    border-right: none;  
+    -webkit-transform: rotate(-45deg);  
+    -moz-transform: rotate(-45deg);  
+    -o-transform: rotate(-45deg);  
+    -ms-transform: rotate(-45deg);  
+    transform: rotate(-45deg);  
+}  
+.checkwrap input[type=checkbox]:checked + label:after {  
+    opacity: 1;  
+    filter: "alpha(opacity=100)";   /* IE 8 */ 
+          filter: alpha(opacity=100);  /* IE 4-7 */ 
+}  
+
+#timepanel a.btn,#provincepanel a.btn{
+	margin-left:10px;
+}
+#timepanel{
+    margin-right:17px!important;
+}
+#provincepanel{
+	margin-top:5px!important;
+	margin-right:41px!important;
+
+}
+.easyui-textbox2{
+   border:1px solid #95B8E7;
+   border-radius:5px;
+ }

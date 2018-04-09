@@ -1,0 +1,48 @@
+.showbox{
+	width:100%;
+}
+.showbox:after{
+	content:"";
+	display: block;
+	clear:both;
+}
+.showbox .col-sm-6{
+	padding:10px 20px;
+}
+.showbox .col-sm-6 div{
+	height: 107px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border:2px solid rgba(228, 228, 228, 1);
+	border-radius: 10px;
+	font-family: 'Arial Negreta', 'Arial';
+	font-style: normal;
+	font-size: 18px;
+	text-align: center;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+	max-width:300px;
+	padding-top:8px;
+}
+.showbox>div h2{
+	font-size: 28px;
+	line-height: 32px;
+	color: #333333;
+	margin:0;
+	padding:0;
+	font-weight: normal;
+}
+.showbox>div p{
+    font-weight: 700;
+    font-style: normal;
+	font-size: 18px;
+	color: #17B7CC;
+	line-height:35px;
+	margin:0;
+	padding:0;
+}
+.showbox>div i{
+	font-size: 16px;
+	color: #008000;
+	line-height: 16px;
+	display: block;
+}

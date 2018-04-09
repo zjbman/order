@@ -1,0 +1,149 @@
+/* 整体报表整体数据展示部分*/
+.j-data-total{
+	width:100%;
+}
+.j-data-total:after{
+	content:"";
+	display: block;
+	clear:both;
+}
+.j-data-total .col-sm-6{
+	padding:10px 20px;
+}
+.j-data-total .col-sm-6 div{
+	height: 107px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border:2px solid rgba(228, 228, 228, 1);
+	border-radius: 10px;
+	font-family: 'Arial Negreta', 'Arial';
+	font-style: normal;
+	font-size: 18px;
+	text-align: center;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+	max-width:300px;
+	padding-top:8px;
+}
+.j-data-total>div h2{
+	font-size: 28px;
+	line-height: 32px;
+	color: #333333;
+	margin:0;
+	padding:0;
+	font-weight: normal;
+}
+.j-data-total>div p{
+    font-weight: 700;
+    font-style: normal;
+	font-size: 18px;
+	color: #17B7CC;
+	line-height:35px;
+	margin:0;
+	padding:0;
+}
+.j-data-total>div i{
+	font-size: 16px;
+	color: #008000;
+	line-height: 16px;
+	display: block;
+}
+
+/* 分类标签 */
+.j-type:after{
+  content:"";
+  display:block;
+  clear:both;
+}
+
+.j-type{
+	font-size:14px;
+	padding:15px 0 5px 15px;
+}
+.j-type i{
+	display:inline-block;
+	padding-right:10px;
+	font-style:normal;
+	line-height:30px;
+	float:left;
+}
+.j-type .j-typespan{
+	display:inline-block;
+	border:1px solid #91e0ea;
+	border-right:none;
+	padding:0 1em;
+	line-height:30px;
+	float:left;
+	cursor:point;
+	background: #fff;
+}
+.j-type .j-typespan:last-of-type{
+	border-right:1px solid #91e0ea;
+}
+.j-type span.on{
+	background:#34bed1;
+	color:#fff;
+}
+.j-type button{
+	margin-left: 50px;
+}
+
+#typeTitle,#selTypeTitle{
+	min-width:auto;
+	padding:0 10px 0 0
+}
+
+#bytime{
+	background:#73d2dd;
+	color:#fff;
+	outline:none;
+	border:none;
+}
+#bytime.ing{
+	background:#ff8080;
+}
+/* 图表标签提示 */
+.j-tiptitle{
+    font-weight: 700;
+    font-style: normal;
+    font-size: 16px;
+    color: #17B7CC;
+    position:relative;
+}
+.j-tiptitle .dotspan{
+  display: inline-block;
+  width:15px;
+  height:15px;
+  background:rgba(0,0,0,0.7);
+  color:#fff;
+  border-radius: 50%;
+  font-size: 13px;
+  text-align: center;
+  line-height: 17px;
+}
+.itembox{
+	position: absolute;
+    right: 30px;
+    bottom: -30px;
+    color: #333;
+    z-index: 99;
+    font-size: 14px;
+}
+.itembox i{
+	font-style:normal;
+	margin-right:10px;
+}
+.itembox .j-input{
+	width:120px;
+}
+@media(max-width: 768px){
+	.j-type{
+		margin-left: 0;
+	}
+	.j-type i{
+		display: block;
+		float:none;
+	}
+	.j-query-box dl{
+    	margin-left:0;
+  	}
+}

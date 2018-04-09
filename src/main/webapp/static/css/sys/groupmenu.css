@@ -1,0 +1,19 @@
+.dbtree:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+
+
+.dbtree>div{
+	width:49%;
+	float:left;
+}
+ul{
+	padding:0;
+	margin:0;
+}
+
+.dbtree .btn-success{
+	margin-left:38px;
+}
