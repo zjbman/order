@@ -38,8 +38,8 @@ public class LoginController {
                 } else if (subject.hasRole("商家")) {
                     System.out.println("用户 " + subject.getPrincipal() + " 角色是 商家！");
 
-                } else if (subject.hasRole("消费者")) {
-                    System.out.println("用户 " + subject.getPrincipal() + " 角色是 消费者！");
+                } else if (subject.hasRole("开发测试")) {
+                    System.out.println("用户 " + subject.getPrincipal() + " 角色是 开发测试！");
 
                 } else {
                     System.out.println("用户 " + subject.getPrincipal() + " 角色是 未知！");

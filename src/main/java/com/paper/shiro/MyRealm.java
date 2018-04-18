@@ -15,9 +15,12 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zjbman
@@ -38,20 +41,21 @@ public class MyRealm extends AuthorizingRealm {
      */
 
     @Autowired
-    AccountService accountService;
+    @Qualifier("tUserService")
+    TUserService tUserService;
+
     @Autowired
-    RoleService roleService;
+    @Qualifier("tGroupMenuMappingService")
+    TGroupMenuMappingService tGroupMenuMappingService;
+
     @Autowired
-    AuthorityService authorityService;
-    @Autowired
-    AccountRoleMappingService accountRoleMappingService;
-    @Autowired
-    RoleAuthorityMappingService roleAuthorityMappingService;
+    @Qualifier("tGroupService")
+    TGroupService tGroupService;
 
     /**
      * 认证
-     * @param token
-     * 该方法的调用时机为LoginController.login()方法中执行Subject.login()时
+     *
+     * @param token 该方法的调用时机为LoginController.login()方法中执行Subject.login()时
      * @throws AuthenticationException
      */
     @Override
@@ -62,22 +66,67 @@ public class MyRealm extends AuthorizingRealm {
         String username = (String) token.getPrincipal();
 
         /* 2.通过username查询数据库*/
-        String sql = "select * from account where username = '" + username + "'";
-        Account account = accountService.findBySQL(sql, true);
+        String sql = "select * from t_user where username = '" + username + "'";
+        TUser tUser = tUserService.findBySQL(sql, true);
 
         /* 3.如果查询不到则返回null*/
-        if(account == null){
+        if (tUser == null) {
             return null;
         }
 
-        /* 将当前登录的用户缓存到session中*/
-        setSession(WebParam.LOGIN_USER,account);
+        /* 将当前登录的用户缓存到shiro的session中,
+           可以通过HttpServletRequest.getSession().getAttribute(WebParam.LOGIN_USER);来获取当前登录用户*/
+        setSession(WebParam.LOGIN_USER, tUser);
+
+        /* 将当前登录用户的权限缓存到shiro的session中，
+           拿着tUser的id，换取group_id，接着去group_menu_mapping表中换取TMenu*/
+        setSession(WebParam.PERMISSION, getMenuList(tGroupMenuMappingService.getGroupMenuMappingListByUserId(tUser.getId())));
 
         /* 4.获取从数据库查询出来的用户密码*/
-        String password = account.getPassWord();
+        String password = tUser.getPassword();
 
         /* 5.返回认证信息由父类AuthenticatingRealm进行认证*/
         return new SimpleAuthenticationInfo(username, password, getName());
+    }
+
+    /**
+     * 从 用户组权限映射表 中获取对应的 用户权限列表（就是菜单）
+     *
+     * @param tGroupMenuMappingList
+     * @return Map<Integer,List<TMenu>> key是t_menu中的pid，value是该pid对应的所有菜单集合
+     */
+    private Map<Integer, List<TMenu>> getMenuList(List<TGroupMenuMapping> tGroupMenuMappingList) {
+        Map<Integer, List<TMenu>> map = new HashMap();
+
+        for (TGroupMenuMapping data : tGroupMenuMappingList) {
+            Integer pid = data.getTMenu().getPid();
+            /* 判断map中是否包含该key了，如果包含了，则追加
+               如果不包含，则新增 */
+            if (map.containsKey(pid)) {
+                map.get(pid).add(data.getTMenu());
+            } else {
+                List<TMenu> list = new ArrayList();
+                list.add(data.getTMenu());
+                map.put(pid, list);
+            }
+        }
+
+        return map;
+    }
+
+
+    /**
+     * 将一些数据放到ShiroSession中,以便于其它地方使用
+     * 比如Controller,使用时直接用HttpSession.getAttribute(key)就可以取到
+     */
+    private void setSession(Object key, Object value) {
+        Subject currentUser = SecurityUtils.getSubject();
+        if (null != currentUser) {
+            Session session = currentUser.getSession();
+            if (null != session) {
+                session.setAttribute(key, value);
+            }
+        }
     }
 
 
@@ -98,70 +147,23 @@ public class MyRealm extends AuthorizingRealm {
         String username = (String) principals.getPrimaryPrincipal();
 
         /* 2.根据身份信息从数据库中查询权限数据*/
+        String sql = "select * from t_user where username = '" + username + "'";
+        TUser tUser = tUserService.findBySQL(sql, true);
 
         /* 3.将权限信息封闭为AuthorizationInfo*/
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
-        //（1）先查询属于什么角色,拿到角色id
-        String sql = "select * from account where username =  '" + username + "'";
-        Account account = accountService.findBySQL(sql, true);
-        if(account != null){
-            Integer id = account.getId();
-            sql = "select * from account_role_mapping where account_id = " + id;
-            AccountRoleMapping accountRoleMapping = accountRoleMappingService.findBySQL(sql, true);
-            if(accountRoleMapping == null){
-                return null;
-            }
+        /* 添加的角色信息是由自己自定义的，eg “管理员”，“商家”，“开发测试”
+           这里的角色信息 由用户组来替代*/
+        TGroup tGroup = tGroupService.findById(tUser.getGroupId());
+        info.addRole(tGroup.getName());
 
-            Integer roleId = accountRoleMapping.getRoleId();
-            Role role = roleService.findById(roleId);
-
-            if(role == null){
-                return null;
-            }
-
-            /* 添加的角色信息是由自己自定义的，eg “管理员”，“商家”，“消费者”*/
-            info.addRole(role.getRole());
-
-            //（2）拿着角色id去获取相应的权限
-            sql = "select * from role_authority_mapping where role_id = " + id;
-            RoleAuthorityMapping roleAuthorityMapping = roleAuthorityMappingService.findBySQL(sql, true);
-            if(roleAuthorityMapping == null){
-                return null;
-            }
-
-            Integer authorityId = roleAuthorityMapping.getAuthorityId();
-            Authority authority = authorityService.findById(authorityId);
-            if(authority == null){
-                return null;
-            }
-
-            /* 将当前用户的权限放进session中*/
-            setSession(WebParam.PERMISSION,authority);
-
-            /* 添加的权限信息是由自己自定义的， eg “管理员权限”，“商家权限”，“消费者权限”*/
-            info.addStringPermission(authority.getAuthority());
-
-        }
+        /* 添加的权限信息是由自己自定义的， eg “管理员权限”，“商家权限”，“消费者权限”
+           这里的权限信息 由用户组来替代*/
+        info.addStringPermission(tGroup.getName() + "权限");
 
         /* 4.返回AuthorizationInfo*/
         return info;
-    }
-
-
-
-    /**
-     * 将一些数据放到ShiroSession中,以便于其它地方使用
-     * 比如Controller,使用时直接用HttpSession.getAttribute(key)就可以取到
-     */
-    private void setSession(Object key, Object value){
-        Subject currentUser = SecurityUtils.getSubject();
-        if(null != currentUser){
-            Session session = currentUser.getSession();
-            if(null != session){
-                session.setAttribute(key, value);
-            }
-        }
     }
 }
 
