@@ -101,13 +101,16 @@
                         <br>
                         <br>
                         <br>
-                        <li><a href = '${pageContext.request.contextPath}/business/List.html'>商家总览</a></li>
+                        <li><a href = '${pageContext.request.contextPath}/businessManager/List.html'>商家管理</a></li>
                         <br>
                         <br>
                         <li><a href = '${pageContext.request.contextPath}/orderList/List.html'>订单列表</a></li>
                         <br>
                         <br>
                         <li><a href = '${pageContext.request.contextPath}/orderIncome/List.html'>订单收入</a></li>
+                        <br>
+                        <br>
+                        <li><a href = '${pageContext.request.contextPath}/userManager/List.html'>用户管理</a></li>
 
                         <c:forEach items="${parent}" var="pm" varStatus="status">
                             <c:set var="key" value="${pm.key}"/>
