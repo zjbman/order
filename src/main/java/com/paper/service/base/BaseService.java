@@ -20,15 +20,11 @@ public interface BaseService<T> {
     /** 查询所有的数据，但是返回的是Object类型*/
     List<Object> findByObject(String sql);
 
-    List<T> findAll(String sql);
-
     void delete(T t);
 
     void delete(Integer id);
 
     void deleteBySql(String sql);
-
-    T get(Integer id);
 
     void save(T t) throws Exception;
 

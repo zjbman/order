@@ -101,16 +101,16 @@
                         <br>
                         <br>
                         <br>
-                        <li><a href = '${pageContext.request.contextPath}/businessManager/List.html'>商家管理</a></li>
+                        <li><a href = '${pageContext.request.contextPath}/businessManager/List.html' target="pageFrame">商家管理</a></li>
                         <br>
                         <br>
-                        <li><a href = '${pageContext.request.contextPath}/orderList/List.html'>订单列表</a></li>
+                        <li><a href = '${pageContext.request.contextPath}/orderList/List.html' target="pageFrame">订单列表</a></li>
                         <br>
                         <br>
-                        <li><a href = '${pageContext.request.contextPath}/orderIncome/List.html'>订单收入</a></li>
+                        <li><a href = '${pageContext.request.contextPath}/orderIncome/List.html' target="pageFrame">订单收入</a></li>
                         <br>
                         <br>
-                        <li><a href = '${pageContext.request.contextPath}/userManager/List.html'>用户管理</a></li>
+                        <li><a href = '${pageContext.request.contextPath}/userManager/List.html' target="pageFrame">用户管理</a></li>
 
                         <c:forEach items="${parent}" var="pm" varStatus="status">
                             <c:set var="key" value="${pm.key}"/>
@@ -136,7 +136,7 @@
                                                 <c:if test="${sub.display==true}">
                                                     <li>
                                                         <a href="${pageContext.request.contextPath}/${sub.url}"
-                                                           target="pageframe">${sub.name}</a>
+                                                           target="pageFrame">${sub.name}</a>
                                                     </li>
                                                 </c:if>
                                             </c:forEach>
@@ -158,7 +158,7 @@
     </nav>
 
     <div id="page-wrapper">
-        <iframe width="100%" height="100%" name="pageframe" frameBorder="0"></iframe>
+        <iframe width="100%" height="100%" name="pageFrame" frameBorder="0"></iframe>
     </div>
 
 

@@ -6,6 +6,7 @@ import com.paper.data.BusinessData;
 //import com.paper.service.BusinessService;
 import com.paper.entity.Business;
 import com.paper.service.BusinessService;
+import com.paper.service.base.BaseService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,7 +34,8 @@ public class BusinessManagerController extends BaseListController<Business> {
     @Qualifier("businessService")
     private BusinessService businessService;
 
-    //    @RequestMapping("/List")
+
+//        @RequestMapping("/List")
 //    public @ResponseBody
 //    Map<String,Object> List(){
 //        List<BusinessData> data = new ArrayList<BusinessData>();
@@ -53,6 +55,16 @@ public class BusinessManagerController extends BaseListController<Business> {
 
     @RequestMapping("/List")
     public String List() {
+        List<BusinessData> data = new ArrayList<BusinessData>();
+
+        BaseService s = businessService;
+
+        list = businessService.findAllSQL("select * from business");
+        if (list != null){
+            for (Business business : list){
+                data.add(new BusinessData(business));
+            }
+        }
         return "business_manager";
     }
 }

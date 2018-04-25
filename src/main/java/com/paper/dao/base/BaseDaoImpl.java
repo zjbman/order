@@ -100,19 +100,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return list;
     }
 
-    public List<T> findAll(String sql) {
-        List<T> list = null;
-        try {
-            session = getCurrentSession();
-            list = session.createQuery(sql).list();
-        } catch (Exception e) {
-            System.out.println("捕捉异常 : " + e.getCause().getMessage());
-            clear(session);
-        }
-        return list;
-    }
-
-
     public void delete(T t) {
         try {
             session = getCurrentSession();
@@ -142,19 +129,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
             System.out.println("删除一条记录异常 : " + e.getCause().getMessage());
             clear(session);
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    public T get(Integer id) {
-        T t = null;
-        try {
-            session = getCurrentSession();
-            t = (T) session.get(entityClass, id);
-        } catch (Exception e) {
-            System.out.println("查询一条记录异常:" + e.getCause().getMessage());
-            clear(session);
-        }
-        return t;
     }
 
     public void save(T t) throws Exception {

@@ -11,7 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  **/
 @Entity
 @Table(name = "t_group_menu_mapping")
-public class TGroupMenuMapping {
+public class TGroupMenuMapping implements java.io.Serializable{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id",unique = true,nullable = false)

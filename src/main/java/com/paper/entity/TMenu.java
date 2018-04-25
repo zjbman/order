@@ -11,7 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  **/
 @Entity
 @Table(name = "t_menu",uniqueConstraints = @UniqueConstraint(columnNames = {"name", "pid" }))
-public class TMenu {
+public class TMenu implements java.io.Serializable{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id",unique = true,nullable = false)

@@ -22,15 +22,11 @@ public interface BaseDao<T> {
     /** 查询所有的数据，但是返回的是Object类型*/
     List<Object> findByObject(String sql);
 
-    List<T> findAll(String sql);
-
     void delete(T t);
 
     void delete(Integer id);
 
     void deleteBySql(String sql);
-
-    T get(Integer id);
 
     void save(T t) throws Exception;
 
@@ -39,8 +35,7 @@ public interface BaseDao<T> {
     void update(T t);
 
     /** 用sql分页查询*/
-    Page<Object[]> findByPageSQL(final Page<Object[]> page, String[] fields,
-                                 String fromSql);
+    Page<Object[]> findByPageSQL(final Page<Object[]> page, String[] fields, String fromSql);
 
     /** 用sql分页查询*/
     Page<T> findByPage(final Page<T> page, String sql);

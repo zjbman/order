@@ -34,10 +34,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         return baseDao.findByObject(sql);
     }
 
-    public List<T> findAll(String sql) {
-        return baseDao.findAll(sql);
-    }
-
     public void delete(T t) {
         baseDao.delete(t);
     }
@@ -48,10 +44,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 
     public void deleteBySql(String sql) {
         baseDao.deleteBySql(sql);
-    }
-
-    public T get(Integer id) {
-        return baseDao.get(id);
     }
 
     public void save(T t) throws Exception {
