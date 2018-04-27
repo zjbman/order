@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/orderIncome")
 public class OrderIncommeController {
 
-    @RequestMapping("/List")
-    public String List(){
+    @RequestMapping("/Page")
+    public String page(){
         return "order_income";
     }
 }

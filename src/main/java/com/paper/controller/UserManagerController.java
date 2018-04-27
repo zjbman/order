@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/userManager")
 public class UserManagerController {
 
-    @RequestMapping("/List")
-    public String List(){
+    @RequestMapping("/Page")
+    public String page(){
         return "user_manager";
     }
 }

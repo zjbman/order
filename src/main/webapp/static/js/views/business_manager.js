@@ -23,16 +23,18 @@ $(function () {
                 return data.rows;
             }
         },
+
+        //这是页面中 查询 时的参数
         queryParams: function (params) {
             return {
                 page: params.offset / params.limit + 1, //当前页码,默认是上面设置的1(pageNumber)
                 rows: params.limit,//页面大小
-                startdate: startdate,
-                enddate: enddate,
-                appname: appname,
-                advertid: advertid,
-                advertiserid: advertiserid,
-                adstyle: adstyle,
+
+                // datetime: datetime,
+                // businessName: businessName,
+                // contact: contact,
+                // telephone: telephone,
+                // address: address,
             };
         },
 
@@ -61,26 +63,6 @@ function add() {
     console.log("点击了商家入驻")
 }
 
-function formatNum(num) {
-    if (Math.floor(num) == num) {
-        return num;
-    } else {
-        return num.toFixed(2);
-    }
-}
-
-function aveformat(rows, field) {
-    var count = 0;
-    var len = rows.length;
-    for (var i in rows) {
-        count += rows[i][field] * 1;
-    }
-    var ornum = count / len;
-
-    return formatNum(ornum);
-}
-
-
 function creatHighcharts(data) {
 
     var temp2 = data.rows[data.rows.length - 1].datetime;
@@ -99,6 +81,5 @@ function creatHighcharts(data) {
             }
         }
     }
-
 
 };

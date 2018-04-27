@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,36 +36,31 @@ public class BusinessManagerController extends BaseListController<Business> {
     private BusinessService businessService;
 
 
-//        @RequestMapping("/List")
-//    public @ResponseBody
-//    Map<String,Object> List(){
-//        List<BusinessData> data = new ArrayList<BusinessData>();
-//
-//        list = businessService.findAll("select * from business");
-//        if (list != null){
-//            for (Business business : list){
-//                data.add(new BusinessData(business));
-//            }
-//        }
-//        Map<String, Object> result = new HashMap<String, Object>() ;
-//        result.put("rows", data);
-//        return result;
-//
-//    }
+    @RequestMapping("/Page")
+    public String page() {
+        return "business_manager";
+    }
 
 
     @RequestMapping("/List")
-    public String List() {
+    public @ResponseBody
+    Map<String, Object> list() {
         List<BusinessData> data = new ArrayList<BusinessData>();
 
-        BaseService s = businessService;
-
         list = businessService.findAllSQL("select * from business");
-        if (list != null){
-            for (Business business : list){
+        if (list != null) {
+            for (Business business : list) {
                 data.add(new BusinessData(business));
             }
         }
-        return "business_manager";
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("rows", data);
+        return result;
     }
+
+    @RequestMapping("/Add")
+    public String add(){
+        return "business_add";
+    }
+
 }

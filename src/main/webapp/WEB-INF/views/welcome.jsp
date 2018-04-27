@@ -101,16 +101,16 @@
                         <br>
                         <br>
                         <br>
-                        <li><a href = '${pageContext.request.contextPath}/businessManager/List.html' target="pageFrame">商家管理</a></li>
+                        <li><a href = '${pageContext.request.contextPath}/businessManager/Page.html' target="pageFrame">商家管理</a></li>
                         <br>
                         <br>
-                        <li><a href = '${pageContext.request.contextPath}/orderList/List.html' target="pageFrame">订单列表</a></li>
+                        <li><a href = '${pageContext.request.contextPath}/orderList/Page.html' target="pageFrame">订单列表</a></li>
                         <br>
                         <br>
-                        <li><a href = '${pageContext.request.contextPath}/orderIncome/List.html' target="pageFrame">订单收入</a></li>
+                        <li><a href = '${pageContext.request.contextPath}/orderIncome/Page.html' target="pageFrame">订单收入</a></li>
                         <br>
                         <br>
-                        <li><a href = '${pageContext.request.contextPath}/userManager/List.html' target="pageFrame">用户管理</a></li>
+                        <li><a href = '${pageContext.request.contextPath}/userManager/Page.html' target="pageFrame">用户管理</a></li>
 
                         <c:forEach items="${parent}" var="pm" varStatus="status">
                             <c:set var="key" value="${pm.key}"/>
@@ -177,16 +177,18 @@
 
     setpage();
     window.onresize = setpage;
-    var nav1 = $("#side-menu").children('li').children("a");
-    for (var i = 0; i < nav1.length; i++) {
-        if (nav1.eq(i).html().substring(0, 4) == "整体概况") {
-            nav1.eq(i).click();
-            var nav2 = nav1.eq(i).next().find("a").eq(0);
-            nav2.click();
-            window.open(rootPath + "/rpt/total/statistic/Page.html", "pageframe");
-            break;
-        }
-    }
+    window.open(rootPath + "/businessManager/Page.html", "pageFrame");
+
+//    var nav1 = $("#side-menu").children('li').children("a");
+//    for (var i = 0; i < nav1.length; i++) {
+//        if (nav1.eq(i).html().substring(0, 4) == "整体概况") {
+//            nav1.eq(i).click();
+//            var nav2 = nav1.eq(i).next().find("a").eq(0);
+//            nav2.click();
+//            window.open(rootPath + "/rpt/total/statistic/Page.html", "pageframe");
+//            break;
+//        }
+//    }
 
 
 </script>
