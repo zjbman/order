@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : zjbman
-Source Server Version : 50717
+Source Server Version : 50554
 Source Host           : localhost:3306
 Source Database       : order
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2018-04-22 21:54:23
+Date: 2018-05-01 21:00:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -138,7 +138,7 @@ CREATE TABLE `t_group_menu_mapping` (
   KEY `menu_id` (`menu_id`),
   CONSTRAINT `t_group_menu_mapping_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `t_group` (`id`),
   CONSTRAINT `t_group_menu_mapping_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `t_menu` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_group_menu_mapping
@@ -146,12 +146,15 @@ CREATE TABLE `t_group_menu_mapping` (
 INSERT INTO `t_group_menu_mapping` VALUES ('1', '1', '1');
 INSERT INTO `t_group_menu_mapping` VALUES ('2', '1', '2');
 INSERT INTO `t_group_menu_mapping` VALUES ('3', '1', '3');
-INSERT INTO `t_group_menu_mapping` VALUES ('4', '2', '1');
-INSERT INTO `t_group_menu_mapping` VALUES ('5', '2', '2');
-INSERT INTO `t_group_menu_mapping` VALUES ('6', '2', '3');
-INSERT INTO `t_group_menu_mapping` VALUES ('7', '3', '1');
-INSERT INTO `t_group_menu_mapping` VALUES ('8', '3', '2');
-INSERT INTO `t_group_menu_mapping` VALUES ('9', '3', '3');
+INSERT INTO `t_group_menu_mapping` VALUES ('4', '1', '4');
+INSERT INTO `t_group_menu_mapping` VALUES ('5', '2', '1');
+INSERT INTO `t_group_menu_mapping` VALUES ('6', '2', '2');
+INSERT INTO `t_group_menu_mapping` VALUES ('7', '2', '3');
+INSERT INTO `t_group_menu_mapping` VALUES ('8', '2', '4');
+INSERT INTO `t_group_menu_mapping` VALUES ('9', '3', '1');
+INSERT INTO `t_group_menu_mapping` VALUES ('10', '3', '2');
+INSERT INTO `t_group_menu_mapping` VALUES ('11', '3', '3');
+INSERT INTO `t_group_menu_mapping` VALUES ('12', '3', '4');
 
 -- ----------------------------
 -- Table structure for t_menu
@@ -167,14 +170,15 @@ CREATE TABLE `t_menu` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pid` (`pid`,`name`),
   UNIQUE KEY `UK_674bpad5ls7vjg10ifbgjqbhx` (`name`,`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_menu
 -- ----------------------------
-INSERT INTO `t_menu` VALUES ('1', '0', '商家管理', '', '2018-03-23', '2018-03-23');
-INSERT INTO `t_menu` VALUES ('2', '0', '订单管理', '', '2018-03-23', '2018-03-23');
-INSERT INTO `t_menu` VALUES ('3', '0', '收入管理', '', '2018-03-23', '2018-03-23');
+INSERT INTO `t_menu` VALUES ('1', '0', '商家管理', 'businessManager/Page.html', '2018-03-23', '2018-03-23');
+INSERT INTO `t_menu` VALUES ('2', '0', '订单列表', 'orderList/Page.html', '2018-03-23', '2018-03-23');
+INSERT INTO `t_menu` VALUES ('3', '0', '订单收入', 'orderIncome/Page.html', '2018-03-23', '2018-03-23');
+INSERT INTO `t_menu` VALUES ('4', '0', '用户管理', 'userManager/Page.html', '2018-05-01', '2018-05-01');
 
 -- ----------------------------
 -- Table structure for t_user

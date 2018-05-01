@@ -60,7 +60,7 @@ $(function () {
 });
 
 function add() {
-    console.log("点击了商家入驻")
+
 }
 
 function creatHighcharts(data) {

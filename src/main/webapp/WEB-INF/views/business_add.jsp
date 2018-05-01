@@ -3,9 +3,6 @@
 
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme() + "://"
-            + request.getServerName() + ":" + request.getServerPort()
-            + path + "/";
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -29,22 +26,42 @@
         </div>
         <div class="col-lg-12">
             <div style='margin-right: 10px; text-align: right; margin-top: -10px; margin-bottom: 10px;'>
-                <a class='btn btn-info btn-sm' href='${pageContext.request.contextPath}/businessManager/Save.html' onclick='save()'>确定</a>
-                <a class='btn btn-info btn-sm' href='${pageContext.request.contextPath}/businessManager/Page.html' onclick='cancel()'>取消</a>
+                <a class='btn btn-info btn-sm' onclick='save()'>确定</a>
+                <a class='btn btn-info btn-sm' onclick='cancel()'>取消</a>
             </div>
         </div>
-        <div id="container" style="min-width:40px;height:40px"></div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <table id="businessAdd" class="tab-panal">
+                        <tr>
+                            <th>商家名：</th>
+                            <td><input id="businessName" name="businessName" type="text" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th>联系人：</th>
+                            <td><input id="contact" name="contact" type="text"  required="required"></td>
+                        </tr>
+                        <tr>
+                            <th>手机号码：</th>
+                            <td><input id="telephone" name="telephone" type="text" required="required" style="width:100%"></td>
+                        </tr>
 
-        <div>
-            <table id="table"></table>
+                        <tr>
+                            <th>商家详细地址：</th>
+                            <td><input name="address" id="address" type="text" required="required"></td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<script src="${pageContext.request.contextPath}/static/js/views/business_manager.js"></script>
-<script src="${pageContext.request.contextPath}/static/jslib/hightchar/code/highcharts.js"></script>
-<script src="${pageContext.request.contextPath}/static/jslib/hightchar/code/modules/exporting.js"></script>
-<script src="${pageContext.request.contextPath}/static/jslib/hightchar/code/modules/data.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/views/business_add.js"></script>
+    <script src="${pageContext.request.contextPath}/static/jslib/hightchar/code/highcharts.js"></script>
+    <script src="${pageContext.request.contextPath}/static/jslib/hightchar/code/modules/exporting.js"></script>
+    <script src="${pageContext.request.contextPath}/static/jslib/hightchar/code/modules/data.js"></script>
 </body>
 
 </html>

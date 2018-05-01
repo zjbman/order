@@ -29,7 +29,9 @@
         </div>
         <div class="col-lg-12">
             <div style='margin-right: 10px; text-align: right; margin-top: -10px; margin-bottom: 10px;'>
-                <a class='btn btn-info btn-sm' href='${pageContext.request.contextPath}/businessManager/Add.html' onclick='add()'>商家入驻</a>
+                <a class='btn btn-info btn-sm' href='<%=request.getContextPath()%>/businessManager/Add.html'
+                   onclick='add()'>商家入驻</a>
+                <%--<a class='btn btn-info btn-sm' href='${pageContext.request.contextPath}/businessManager/Add.html' onclick='add()'>商家入驻</a>--%>
             </div>
         </div>
         <div id="container" style="min-width:40px;height:40px"></div>

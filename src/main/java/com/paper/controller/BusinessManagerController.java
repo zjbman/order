@@ -2,11 +2,8 @@ package com.paper.controller;
 
 import com.paper.controller.base.BaseListController;
 import com.paper.data.BusinessData;
-//import com.paper.entity.Business;
-//import com.paper.service.BusinessService;
 import com.paper.entity.Business;
 import com.paper.service.BusinessService;
-import com.paper.service.base.BaseService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,11 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.persistence.ManyToOne;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author zjbman
@@ -59,8 +53,40 @@ public class BusinessManagerController extends BaseListController<Business> {
     }
 
     @RequestMapping("/Add")
-    public String add(){
+    public String add() {
         return "business_add";
     }
 
+    @RequestMapping("/Save")
+    public @ResponseBody
+    Map<String, Object> save(String businessName, String contact, String telephone, String address) {
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        /* 校验商家名是否已存在,如存在，则保存失败*/
+        Business business = businessService.findBySQL("select * from business where name = '" + businessName + "'", true);
+        if (business != null) {
+            //已存在，保存失败
+            result.put("msg", "商家名已被占用，请更换一个");
+            return result;
+        }
+
+        try {
+            business = new Business();
+            business.setName(businessName);
+            business.setContact(contact);
+            business.setTelephone(telephone);
+            business.setAddress(address);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            business.setDate(format.format(new Date()));
+
+            businessService.save(business);
+            result.put("msg","保存成功");
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            result.put("msg", "保存出错！");
+            return result;
+        }
+    }
 }

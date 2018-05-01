@@ -35,6 +35,7 @@
             <label ><input type="checkbox" id="rempwd">记住密码</label>
         </div>
         <div class="alert">
+            <%--<h3 ><span style="color: #dc143c; "><%=requestScope.loginFail%></span></h3>--%>
             <h3 ><span style="color: #dc143c; ">${requestScope.loginFail}</span></h3>
         </div>
         <input type="button" value="登录" class="sub" onclick="login()">

@@ -21,6 +21,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    <%--<link href="<%=request.getContextPath()%>/favicon.ico" rel="icon" type="image/x-icon"/>--%>
+    <%--<link href="<%=request.getContextPath()%>/favicon.ico" rel="shortcut icon" type="image/x-icon"/>--%>
     <link href="${pageContext.request.contextPath}/favicon.ico" rel="icon" type="image/x-icon"/>
     <link href="${pageContext.request.contextPath}/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <link rel="stylesheet" type="text/css"
@@ -60,6 +62,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand">
+                <%--<img src="<%=request.getContextPath()%>/static/img/logo.png">点菜系统管理后台--%>
                 <img src="${pageContext.request.contextPath}/static/img/logo.png">点菜系统管理后台
             </a>
         </div>
@@ -82,6 +85,7 @@
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i>修改密码</a>
                     </li>
                     <li class="divider"></li>
+                    <%--<li><a href="<%=request.getContextPath()%>/LoginOut.html"><i class="fa fa-sign-out fa-fw"></i>退出</a>--%>
                     <li><a href="${pageContext.request.contextPath}/LoginOut.html"><i class="fa fa-sign-out fa-fw"></i>退出</a>
                     </li>
                 </ul>
@@ -98,55 +102,61 @@
                 <ul class="nav" id="side-menu">
                     <%--<c:if var="fl" test="${sessionScope['TUser']==sessionScope['loginUser']}">--%>
                         <c:set var="parent" value="${sessionScope['permission']}"></c:set>
-                        <br>
-                        <br>
-                        <br>
-                        <li><a href = '${pageContext.request.contextPath}/businessManager/Page.html' target="pageFrame">商家管理</a></li>
-                        <br>
-                        <br>
-                        <li><a href = '${pageContext.request.contextPath}/orderList/Page.html' target="pageFrame">订单列表</a></li>
-                        <br>
-                        <br>
-                        <li><a href = '${pageContext.request.contextPath}/orderIncome/Page.html' target="pageFrame">订单收入</a></li>
-                        <br>
-                        <br>
-                        <li><a href = '${pageContext.request.contextPath}/userManager/Page.html' target="pageFrame">用户管理</a></li>
 
-                        <c:forEach items="${parent}" var="pm" varStatus="status">
-                            <c:set var="key" value="${pm.key}"/>
-                            <c:if test="${pm.key eq 0}">      <%-- 在这里判断map集合的key是否为0，0则代表父菜单--%>
-
-                                <%-- items这里拿到的是List<TMenu> ,m 则是Tmenu--%>
-                                <c:forEach items="${parent[pm.key] }" var="m" varStatus="status">
-
-                                    <li id="t${status.index+1}">
-
-                                        <c:if test="${sessionScope['permission'][m.id]==null}">
-                                            <a href="javascript:void(0)">${m.name}</a>
-                                            <%--<h3>fdsf1</h3>--%>
-                                        </c:if>
-                                        <c:if test="${sessionScope['permission'][m.id]!=null}">
-                                            <a href="javascript:;" data-toggle="collapse"
-                                               data-target="#demo${m.id}">${m.name}<span class="fa arrow"></span></a>
-                                            <%--<h3>fdsf2</h3>--%>
-                                        </c:if>
-
-                                        <ul id="demo${m.id}" class="nav nav-second-level">
-                                            <c:forEach var="sub" items="${sessionScope['permission'][m.id]}">
-                                                <c:if test="${sub.display==true}">
-                                                    <li>
-                                                        <a href="${pageContext.request.contextPath}/${sub.url}"
-                                                           target="pageFrame">${sub.name}</a>
-                                                    </li>
-                                                </c:if>
-                                            </c:forEach>
-                                        </ul>
+                        <br>
+                        <br>
+                        <br>
+                        <li><a href = '<%=request.getContextPath()%>/businessManager/Page.html' target="pageFrame">商家管理</a></li>
+                        <br>
+                        <br>
+                        <li><a href = '<%=request.getContextPath()%>/orderList/Page.html' target="pageFrame">订单列表</a></li>
+                        <br>
+                        <br>
+                        <li><a href = '<%=request.getContextPath()%>/orderIncome/Page.html' target="pageFrame">订单收入</a></li>
+                        <br>
+                        <br>
+                        <li><a href = '<%=request.getContextPath()%>/userManager/Page.html' target="pageFrame">用户管理</a></li>
 
 
-                                    </li>
-                                </c:forEach>
-                            </c:if>
-                        </c:forEach>
+                        <%-- 注释掉的代码是 根据用户权限获取不同的菜单的逻辑--%>
+                        <%--<c:forEach items="${parent}" var="pm" varStatus="status">--%>
+                            <%--<c:set var="key" value="${pm.key}"/>--%>
+                            <%--<c:if test="${pm.key eq 0}">      &lt;%&ndash; 在这里判断map集合的key是否为0，0则代表父菜单&ndash;%&gt;--%>
+
+                                <%--&lt;%&ndash; items这里拿到的是List<TMenu> ,m 则是Tmenu&ndash;%&gt;--%>
+                                <%--<c:forEach items="${parent[pm.key] }" var="m" varStatus="status">--%>
+
+                                    <%--<li id="t${status.index+1}">--%>
+
+                                        <%--<c:if test="${sessionScope['permission'][m.id]==null}">--%>
+                                            <%--<a href="javascript:void(0)">${m.name}</a>--%>
+                                            <%--&lt;%&ndash;<h3>fdsf1</h3>&ndash;%&gt;--%>
+                                        <%--</c:if>--%>
+                                        <%--<c:if test="${sessionScope['permission'][m.id]!=null}">--%>
+                                            <%--<a href="javascript:" data-toggle="collapse"--%>
+                                               <%--data-target="#demo${m.id}">${m.name}<span class="fa arrow"></span></a>--%>
+                                            <%--&lt;%&ndash;<h3>fdsf2</h3>&ndash;%&gt;--%>
+                                        <%--</c:if>--%>
+
+                                        <%--<ul id="demo${m.id}" class="nav nav-second-level">--%>
+                                            <%--<c:forEach var="sub" items="${sessionScope['permission'][m.id]}">--%>
+                                                <%--<c:if test="${sub.display==true}">--%>
+                                                    <%--<li>--%>
+                                                        <%--<br>--%>
+                                                        <%--<br>--%>
+                                                        <%--<br>--%>
+                                                        <%--<a href="${pageContext.request.contextPath}/${sub.url}"--%>
+                                                           <%--target="pageFrame">${sub.name}</a>--%>
+                                                    <%--</li>--%>
+                                                <%--</c:if>--%>
+                                            <%--</c:forEach>--%>
+                                        <%--</ul>--%>
+
+
+                                    <%--</li>--%>
+                                <%--</c:forEach>--%>
+                            <%--</c:if>--%>
+                        <%--</c:forEach> --%>
                     <%--</c:if>--%>
                     <%-- if end--%>
 
@@ -177,7 +187,10 @@
 
     setpage();
     window.onresize = setpage;
+//    window.open('http://localhost:8080/order' + "/businessManager/Page.html","pageFrame");
     window.open(rootPath + "/businessManager/Page.html", "pageFrame");
+
+
 
 //    var nav1 = $("#side-menu").children('li').children("a");
 //    for (var i = 0; i < nav1.length; i++) {

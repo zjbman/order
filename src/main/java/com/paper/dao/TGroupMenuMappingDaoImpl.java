@@ -20,13 +20,14 @@ public class TGroupMenuMappingDaoImpl extends BaseDaoImpl<TGroupMenuMapping> imp
 
     public List<TGroupMenuMapping> getGroupMenuMappingListByUserId(Integer userId) {
         List<TGroupMenuMapping> tGroupMenuMappingList = new ArrayList();
+        clear(getCurrentSession());
         Session session = getCurrentSession();
         Transaction transaction = session.beginTransaction();
         try {
             String sql = "select g.* from t_group_menu_mapping g ,t_user u where g.group_id = u.group_id and u.id = " + userId;
-            List list = session.createSQLQuery(sql).list();
+            List<TGroupMenuMapping> list = session.createSQLQuery(sql).addEntity(TGroupMenuMapping.class).list();
             for (int i = 0; i < list.size(); i++) {
-                tGroupMenuMappingList.add((TGroupMenuMapping) list.get(i));
+                tGroupMenuMappingList.add(list.get(i));
             }
 
             transaction.commit();
@@ -34,7 +35,7 @@ public class TGroupMenuMappingDaoImpl extends BaseDaoImpl<TGroupMenuMapping> imp
             e.printStackTrace();
             transaction.rollback();
         }
-        System.out.println(tGroupMenuMappingList);
+        System.out.println("tGroupMenuMappingList ===== " + tGroupMenuMappingList);
         return tGroupMenuMappingList;
     }
 

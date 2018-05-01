@@ -36,7 +36,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
      *
      * @param session
      */
-    private void clear(Session session) {
+    public void clear(Session session) {
         if (session != null) {
             session.clear();
         }

@@ -130,14 +130,15 @@ function isDataOk(data,successTip,failTip,noRightTip){
 	var sc = successTip || "删除成功!";
 	var fa = failTip || " 删除失败!";
 	var nor= noRightTip ||"无权限访问!";
-	if(data.code==12){
+	if(data.code == 12){
 		Ewin.confirm({ title: "fail",
 			message:nor+data.errorMessage
 		});  
 		$(target).modal('hide');
 		return false;
-	}	
-	if(data.msg==null){
+	}
+
+	if(data.msg == "保存成功"){
 		Ewin.confirm({ title: '提示:',
 			message: sc,
 			icon:"glyphicon-ok"

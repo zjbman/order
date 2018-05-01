@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 
 /**
  * @author zjbman
@@ -99,5 +102,15 @@ public class LoginController {
     }
 
 
+    public static void main(String[] args) {
+        InetAddress address = null;//获取的是本地的IP地址
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        String hostAddress = address.getHostAddress();//
+        System.out.println(hostAddress);
+    }
 }
 

@@ -1,6 +1,7 @@
 package com.paper.data;
 
 
+import com.paper.data.base.BaseData;
 import com.paper.entity.Business;
 
 /**
@@ -8,7 +9,7 @@ import com.paper.entity.Business;
  * @Description
  * @date 2018/4/22 17:00
  **/
-public class BusinessData {
+public class BusinessData extends BaseData{
     private Integer id;
     private String datetime;
     private String businessName;
