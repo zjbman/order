@@ -35,7 +35,7 @@ public class OrderListController extends BaseListController<Order>{
 
     @RequestMapping("/Page")
     public String page(){
-        return "order_list";
+        return "order/order_list";
     }
 
     @RequestMapping("/List")

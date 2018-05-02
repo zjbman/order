@@ -27,7 +27,9 @@ public class GoodsListController extends BaseListController<Goods> {
 
     private static final Logger log = Logger.getLogger(GoodsListController.class);
 
-    /** 当前的商家Id*/
+    /**
+     * 当前的商家Id
+     */
     private Integer businessId;
 
     @Autowired
@@ -37,7 +39,7 @@ public class GoodsListController extends BaseListController<Goods> {
     @RequestMapping("/Page")
     public String page(Integer id) {
         businessId = id;
-        return "goods_list";
+        return "goods/goods_list";
     }
 
     @RequestMapping("/List")
@@ -45,7 +47,7 @@ public class GoodsListController extends BaseListController<Goods> {
     Map<String, Object> list() {
         List<GoodsData> data = new ArrayList<GoodsData>();
 
-        if(businessId != null) {
+        if (businessId != null) {
             list = goodsService.findAllSQL("select * from goods where business_id = " + businessId);
             if (list != null) {
                 for (Goods goods : list) {
@@ -75,8 +77,10 @@ public class GoodsListController extends BaseListController<Goods> {
     List<GoodsData> find(Integer id) {
         List<GoodsData> data = new ArrayList<GoodsData>();
 
-        Goods goods = goodsService.findById(id);
-        data.add(new GoodsData(goods));
+        if (id != null) {
+            Goods goods = goodsService.findById(id);
+            data.add(new GoodsData(goods));
+        }
 
         return data;
     }
@@ -87,7 +91,7 @@ public class GoodsListController extends BaseListController<Goods> {
     public @ResponseBody
     Map<String, Object> save(Integer id, String name, String details, Double price) {
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Goods goods = new Goods();
 
             if (id != null) {
@@ -101,16 +105,16 @@ public class GoodsListController extends BaseListController<Goods> {
                 goods.setUpdateDate(format.format(new Date()));
             }
 
-            if(!StringUtil.isEmpty(name)) {
+            if (!StringUtil.isEmpty(name)) {
                 goods.setName(name);
             }
-            if(!StringUtil.isEmpty(details)){
+            if (!StringUtil.isEmpty(details)) {
                 goods.setDetails(details);
             }
-            if(price != null){
+            if (price != null) {
                 goods.setPrice(price);
             }
-            if(businessId != null) {
+            if (businessId != null) {
                 Business business = new Business();
                 business.setId(businessId);
                 goods.setBusiness(business);
@@ -118,15 +122,14 @@ public class GoodsListController extends BaseListController<Goods> {
             goodsService.saveOrUpdate(goods);
 
             Map<String, Object> result = new HashMap<String, Object>();
-            result.put("code",200);
+            result.put("code", 200);
             return result;
         } catch (Exception e) {
             e.printStackTrace();
 
             Map<String, Object> result = new HashMap<String, Object>();
-            result.put("code",102);
+            result.put("code", 102);
             return result;
         }
-
     }
 }

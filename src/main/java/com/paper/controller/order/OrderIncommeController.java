@@ -14,6 +14,6 @@ public class OrderIncommeController {
 
     @RequestMapping("/Page")
     public String page(){
-        return "order_income";
+        return "order/order_income";
     }
 }

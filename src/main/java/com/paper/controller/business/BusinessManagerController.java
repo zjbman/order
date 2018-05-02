@@ -32,7 +32,7 @@ public class BusinessManagerController extends BaseListController<Business> {
 
     @RequestMapping("/Page")
     public String page() {
-        return "business_manager";
+        return "business/business_manager";
     }
 
 
@@ -54,7 +54,7 @@ public class BusinessManagerController extends BaseListController<Business> {
 
     @RequestMapping("/Add")
     public String add() {
-        return "business_add";
+        return "business/business_add";
     }
 
     @RequestMapping("/Save")
@@ -76,7 +76,7 @@ public class BusinessManagerController extends BaseListController<Business> {
             business.setContact(contact);
             business.setTelephone(telephone);
             business.setAddress(address);
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             business.setDate(format.format(new Date()));
 
             businessService.save(business);

@@ -1,51 +1,39 @@
-package com.paper.entity;
+package com.paper.data;
 
-import javax.persistence.*;
+import com.paper.entity.User;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-@Entity
-@Table(name = "user")
-public class User {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id",unique = true,nullable = false)
+public class UserData {
     private Integer id;
 
-    @Column(name = "username",unique = true)
     private String username;
 
-    @Column(name = "password")
     private String password;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "telephone")
     private String telephone;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "qq")
     private String qq;
 
-    @Column(name = "create_date")
     private String createDate;
 
-    @Column(name = "update_date")
     private String updateDate;
 
-    /** 1加入了黑名单 0正常账号*/
-    @Column(name = "state")
-    private Integer state;
+    private String state;
 
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
+    public UserData(User user){
+        id = user.getId();
+        username = user.getUsername();
+        password = user.getPassword();
+        name = user.getName();
+        telephone = user.getTelephone();
+        email = user.getEmail();
+        qq = user.getQq();
+        createDate = user.getCreateDate();
+        updateDate = user.getUpdateDate();
+        state = user.getState() == 1 ? "黑名单账号" : "正常账号";
     }
 
     public Integer getId() {
@@ -118,5 +106,13 @@ public class User {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
