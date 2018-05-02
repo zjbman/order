@@ -21,7 +21,7 @@ public class Order  implements java.io.Serializable {
     /** 外键，关联用户信息表的id*/
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private TUser user;
+    private User user;
 
     /** 该订单总价钱*/
     @Column(name = "price")
@@ -41,7 +41,7 @@ public class Order  implements java.io.Serializable {
     private Business business;
 
 
-    /** 以Json形式存储，包含商品id和相应的数量*/
+    /** 以Json形式存储，包含商品id和相应的数量 {id:1,number:2}*/
     @Column(name = "goods")
     private String goods;
 
@@ -70,11 +70,11 @@ public class Order  implements java.io.Serializable {
         this.id = id;
     }
 
-    public TUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(TUser user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
