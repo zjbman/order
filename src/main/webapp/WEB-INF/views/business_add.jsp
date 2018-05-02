@@ -27,7 +27,8 @@
         <div class="col-lg-12">
             <div style='margin-right: 10px; text-align: right; margin-top: -10px; margin-bottom: 10px;'>
                 <a class='btn btn-info btn-sm' onclick='save()'>确定</a>
-                <a class='btn btn-info btn-sm' onclick='cancel()'>取消</a>
+                <a class='btn btn-warning btn-sm' onclick='cancel()'>取消</a>
+                <a class='btn btn-danger btn-sm'  onclick='returnTo()'>返回商家管理</a>
             </div>
         </div>
         <div class="modal-dialog">

@@ -1,4 +1,4 @@
-package com.paper.controller;
+package com.paper.controller.order;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

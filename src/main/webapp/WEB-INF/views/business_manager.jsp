@@ -31,7 +31,8 @@
             <div style='margin-right: 10px; text-align: right; margin-top: -10px; margin-bottom: 10px;'>
                 <a class='btn btn-info btn-sm' href='<%=request.getContextPath()%>/businessManager/Add.html'
                    onclick='add()'>商家入驻</a>
-                <%--<a class='btn btn-info btn-sm' href='${pageContext.request.contextPath}/businessManager/Add.html' onclick='add()'>商家入驻</a>--%>
+                <a class='btn btn-warning btn-sm'  onclick='show()'>查看详情</a>
+                <a class='btn btn-success btn-sm'  onclick='del()'>删 除</a>
             </div>
         </div>
         <div id="container" style="min-width:40px;height:40px"></div>

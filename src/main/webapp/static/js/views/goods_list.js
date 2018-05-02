@@ -2,7 +2,7 @@ $(function () {
     var tableh = window.innerHeight > 0 ? window.innerHeight : window.screen.height;
 
     $('#table').bootstrapTable({
-        url: rootPath + '/businessManager/List.html',
+        url: rootPath + '/goods/List.html',
         method: 'post',   //请求方式（*）
         dataType: "json",
         contentType: "application/x-www-form-urlencoded",
@@ -54,11 +54,12 @@ $(function () {
         columns: [[
             {field: 'ck', checkbox: true},
             {field: 'id', title: 'ID', sortable: true},
-            {field: 'datetime', title: '入驻日期', sortable: true},
-            {field: 'businessName', title: '商家名', sortable: true},
-            {field: 'contact', title: '联系人', sortable: true},
-            {field: 'telephone', title: '联系方式', sortable: true},
-            {field: 'address', title: '地址', sortable: true}
+            {field: 'name', title: '商品名', sortable: true},
+            {field: 'details', title: '商品介绍', sortable: true},
+            {field: 'price', title: '单价', sortable: true},
+            {field: 'businessName', title: '所属商家', sortable: true},
+            {field: 'date', title: '上传商品日期', sortable: true},
+            {field: 'updateDate', title: '修改商品日期', sortable: true}
         ]],
     }); // 表格结束
 
@@ -66,22 +67,102 @@ $(function () {
 });
 
 function add() {
-    // console.log("点击了商家入驻")
+    Winedit("新增", "");
 }
 
-function show() {
+function update() {
     var row = getSelectRow();
-    console.log(row);
-    if (row != false) {
-        window.open(rootPath + "/goods/Page.html?id=" + row[0].id, "pageFrame");
+    if (row) {
+        Winedit(row[0].name + "--修改", row[0].id);
     }
+}
+
+function save() {
+    var id;
+    if ($("#win1title").html() == "新增") {
+        id = null;
+    } else {
+        id = $('#id').val();
+    }
+
+    var name = $('#name').val();
+    var details = $('#details').val();
+    var price = $('#price').val();
+
+
+    if (name == null || name == "" ||
+        price == null || price == "" ||
+        details == null || details == "") {
+
+        Ewin.confirm({
+            title: "提示",
+            message: "请填写完整信息!"
+        });
+        return false;
+    }
+
+
+    $.ajax({
+        url: rootPath + '/goods/Save.html',
+        type: "post",
+        data: {
+            "id": id,
+            'name': name,
+            'price': price,
+            'details': details
+        },
+        dataType: "json",
+        success: function (data) {
+            $('#win1').modal('hide');
+            if (isDataOk(data, "保存成功", "保存失败")) {
+                $('#table').bootstrapTable('refresh');
+            }
+        }
+    });
 }
 
 function del() {
     var row = getSelectRow();
     if (row != false) {
-        deletFormat(rootPath + '/businessManager/Delete.html?id=' + row[0].id);
+        deletFormat(rootPath + '/goods/Delete.html?id=' + row[0].id);
     }
+}
+
+function returnTo() {
+    window.open(rootPath + "/businessManager/Page.html", "pageFrame");
+}
+
+//弹窗
+function Winedit(name, id) {
+    $("#win1title").html(name);
+
+    //修改
+    if (id != "") {
+        $.ajax({
+            url: rootPath + '/goods/Find.html',
+            type: "post",
+            data: {"id": id},
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 12) {
+                    Ewin.confirm({
+                        title: "fail",
+                        message: '无权限访问!  ' + data.errorMessage
+                    });
+                    $('#win1').modal('hide');
+                    return false;
+                }
+
+                $('#id').val(data[0].id);
+                $('#name').val(data[0].name);
+                $('#details').val(data[0].details);
+                $('#price').val(data[0].price);
+            }
+        });
+    }
+
+    //新增
+    $('#win1').modal('show');
 }
 
 function creatHighcharts(data) {
@@ -102,5 +183,4 @@ function creatHighcharts(data) {
             }
         }
     }
-
-};
+}

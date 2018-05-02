@@ -45,6 +45,10 @@ function cancel() {
     window.open(rootPath + "/businessManager/Add.html", "pageFrame");
 }
 
+function returnTo() {
+    window.open(rootPath + "/businessManager/Page.html", "pageFrame");
+}
+
 		
 		
 		

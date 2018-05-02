@@ -1,4 +1,4 @@
-package com.paper.controller;
+package com.paper.controller.business;
 
 import com.paper.controller.base.BaseListController;
 import com.paper.data.BusinessData;
@@ -80,7 +80,8 @@ public class BusinessManagerController extends BaseListController<Business> {
             business.setDate(format.format(new Date()));
 
             businessService.save(business);
-            result.put("msg","保存成功");
+            result.put("msg", "保存成功");
+            result.put("code",200);
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,5 +89,14 @@ public class BusinessManagerController extends BaseListController<Business> {
             result.put("msg", "保存出错！");
             return result;
         }
+    }
+
+    @RequestMapping("/Delete")
+    public @ResponseBody
+    Map<String, Object> delete(Integer id){
+        businessService.delete(id);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", 100);
+        return result;
     }
 }

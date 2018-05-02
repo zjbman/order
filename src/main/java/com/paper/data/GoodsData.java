@@ -1,57 +1,41 @@
-package com.paper.entity;
+package com.paper.data;
 
-import javax.persistence.*;
+import com.paper.entity.Goods;
 
-import static javax.persistence.GenerationType.IDENTITY;
 
-/**
- * @author zjbman
- * @Description
- * @date 2018/4/22 17:25
- **/
-@Entity
-@Table(name = "goods")
-public class Goods  implements java.io.Serializable {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+public class GoodsData {
     private Integer id;
 
     /** 商品名*/
-    @Column(name = "name")
     private String name;
 
     /** 商品介绍*/
-    @Column(name = "details")
     private String details;
 
     /** 价钱*/
-    @Column(name = "price")
     private Double price;
 
     /** 外键，关联商家表的id*/
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "business_id")
-    private Business business;
+    private String businessName;
 
     /** 商品图片*/
-    @Column(name = "picture")
     private String picture;
 
     /** 上传商品日期*/
-    @Column(name = "date")
     private String date;
 
-    /** 上传商品日期*/
-    @Column(name = "update_date")
+    /** 修改商品日期*/
     private String updateDate;
 
-    public String getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
+    public GoodsData(Goods goods){
+        id = goods.getId();
+        name = goods.getName();
+        details = goods.getDetails();
+        price = goods.getPrice();
+        businessName = goods.getBusiness().getName();
+        picture = goods.getPicture();
+        date = goods.getDate();
+        updateDate = goods.getUpdateDate();
     }
 
     public Integer getId() {
@@ -86,12 +70,12 @@ public class Goods  implements java.io.Serializable {
         this.price = price;
     }
 
-    public Business getBusiness() {
-        return business;
+    public String getBusinessName() {
+        return businessName;
     }
 
-    public void setBusiness(Business business) {
-        this.business = business;
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
     }
 
     public String getPicture() {
@@ -108,5 +92,13 @@ public class Goods  implements java.io.Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
     }
 }
