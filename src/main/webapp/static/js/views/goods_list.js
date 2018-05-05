@@ -161,7 +161,7 @@ function Winedit(name, id) {
         });
     }
 
-    //新增
+    //展示弹窗
     $('#win1').modal('show');
 }
 

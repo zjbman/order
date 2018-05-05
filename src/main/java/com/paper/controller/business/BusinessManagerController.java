@@ -1,18 +1,18 @@
 package com.paper.controller.business;
 
-import com.paper.controller.base.BaseListController;
-import com.paper.data.BusinessData;
-import com.paper.entity.Business;
-import com.paper.service.BusinessService;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+        import com.paper.controller.base.BaseListController;
+        import com.paper.data.BusinessData;
+        import com.paper.entity.Business;
+        import com.paper.service.BusinessService;
+        import org.apache.log4j.Logger;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.beans.factory.annotation.Qualifier;
+        import org.springframework.stereotype.Controller;
+        import org.springframework.web.bind.annotation.RequestMapping;
+        import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+        import java.text.SimpleDateFormat;
+        import java.util.*;
 
 /**
  * @author zjbman
@@ -59,9 +59,46 @@ public class BusinessManagerController extends BaseListController<Business> {
 
     @RequestMapping("/Save")
     public @ResponseBody
-    Map<String, Object> save(String businessName, String contact, String telephone, String address) {
+    Map<String, Object> save(Integer id,String businessName, String contact, String telephone, String address) {
         Map<String, Object> result = new HashMap<String, Object>();
 
+        if(null != id){
+            //修改
+            Business business = businessService.findById(id);
+            String oldName = business.getName();
+            if(oldName.equals(businessName)){
+                //没有修改商家名
+                business.setContact(contact);
+                business.setAddress(address);
+                business.setTelephone(telephone);
+                businessService.update(business);
+
+                result.put("msg", "保存成功");
+                result.put("code",200);
+                return result;
+            }else{
+                //修改了商家名
+                 /* 校验商家名是否已存在,如存在，则保存失败*/
+                Business business1 = businessService.findBySQL("select * from business where name = '" + businessName + "'", true);
+                if (business1 != null) {
+                    //已存在，保存失败
+                    result.put("code",1);
+                    result.put("msg", "商家名已被占用，请更换一个");
+                    return result;
+                }
+                business.setName(businessName);
+                business.setContact(contact);
+                business.setAddress(address);
+                business.setTelephone(telephone);
+                businessService.update(business);
+
+                result.put("msg", "保存成功");
+                result.put("code",200);
+                return result;
+            }
+        }
+
+        //新增
         /* 校验商家名是否已存在,如存在，则保存失败*/
         Business business = businessService.findBySQL("select * from business where name = '" + businessName + "'", true);
         if (business != null) {
@@ -98,5 +135,18 @@ public class BusinessManagerController extends BaseListController<Business> {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", 100);
         return result;
+    }
+
+    @RequestMapping("/Find")
+    public @ResponseBody
+    List<BusinessData> find(Integer id){
+        List<BusinessData> data = new ArrayList<BusinessData>();
+
+        if(null != id){
+            Business business = businessService.findById(id);
+            data.add(new BusinessData(business));
+        }
+
+        return data;
     }
 }

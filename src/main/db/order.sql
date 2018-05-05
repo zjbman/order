@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50554
 File Encoding         : 65001
 
-Date: 2018-05-01 21:00:26
+Date: 2018-05-02 21:24:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,12 +28,13 @@ CREATE TABLE `business` (
   `date` varchar(255) DEFAULT NULL COMMENT '入驻日期',
   `picture` varchar(255) DEFAULT NULL COMMENT '商家图片',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of business
 -- ----------------------------
 INSERT INTO `business` VALUES ('1', '阿里粑粑', '鹿云', '1555555555', '杭州', '2018-04-22', 'xxx.jpg');
+INSERT INTO `business` VALUES ('2', '阿里骂骂', '驴云', '15521973476', '深圳', '2018-05-02', 'xxx.jpg');
 
 -- ----------------------------
 -- Table structure for comment
@@ -69,15 +70,18 @@ CREATE TABLE `goods` (
   `price` decimal(10,2) DEFAULT NULL COMMENT '价钱',
   `business_id` int(11) DEFAULT NULL COMMENT '外键，关联商家表的id',
   `picture` varchar(255) DEFAULT NULL COMMENT '商品图片',
+  `date` varchar(255) DEFAULT '' COMMENT '上传日期',
+  `update_date` varchar(255) DEFAULT NULL COMMENT '修改日期',
   PRIMARY KEY (`id`),
   KEY `business_id` (`business_id`),
   CONSTRAINT `goods_ibfk_1` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES ('1', '龙虾', '好吃实惠的龙虾', '100.00', '1', 'xxx.jpg');
+INSERT INTO `goods` VALUES ('1', '龙虾', '好吃实惠的龙虾', '120.00', '1', null, '2018-05-02', '2018-05-02');
+INSERT INTO `goods` VALUES ('2', '红烧猪耳', '正宗的哦,不好吃不要钱', '1000.00', '1', null, '2018-05-02', '2018-05-02');
 
 -- ----------------------------
 -- Table structure for order
@@ -98,12 +102,13 @@ CREATE TABLE `order` (
   KEY `order_ibfk_1` (`user_id`),
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `order_ibfk_2` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', '1', '200.00', '2018-04-22', '广州市', '1', '{id:1,number:2}', '15555555555', '微辣哦');
+INSERT INTO `order` VALUES ('1', '1', '200.00', '2018-04-22', '广州市', '1', '[{id:1,number:2},{id:2,number:1}]', '15555555555', '微辣哦');
+INSERT INTO `order` VALUES ('2', '1', '23.00', '2018-04-02', '梅州市', '1', '[{id:1,number:1}]', '15521973476', '两双筷子');
 
 -- ----------------------------
 -- Table structure for t_group
@@ -223,14 +228,17 @@ CREATE TABLE `user` (
   `qq` varchar(255) DEFAULT NULL,
   `create_date` varchar(255) DEFAULT NULL,
   `update_date` varchar(255) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL COMMENT '1加入了黑名单 0正常账号',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `UK_jhib4legehrm4yscx9t3lirqi` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='这是点菜系统客户端的用户表，区别于点菜系统后台的用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='这是点菜系统客户端的用户表，区别于点菜系统后台的用户表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '用户1', '12580', 'zjbman@sina.com', '825303675', '2018-03-23', '2018-03-23');
-INSERT INTO `user` VALUES ('2', 'zhang', 'd0cd2693b3506677e4c55e91d6365bff', '用户2', '12580', 'jbandxs@sina.com', '825303675', '2018-03-23', '2018-03-23');
-INSERT INTO `user` VALUES ('3', 'kaifa', 'd70c1e5d44de8a9150eb91ecff563578', '用户3', '12580', '825303675@qq.com', '825303675', '2018-03-23', '2018-03-23');
+INSERT INTO `user` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '用户1', '12580', 'zjbman@sina.com', '825303675', '2018-03-23', '2018-03-23', '0');
+INSERT INTO `user` VALUES ('2', 'zhang', 'd0cd2693b3506677e4c55e91d6365bff', '用户2', '12580', 'jbandxs@sina.com', '825303675', '2018-03-23', '2018-03-23', '0');
+INSERT INTO `user` VALUES ('3', 'kaifa', 'd70c1e5d44de8a9150eb91ecff563578', '用户3', '12580', '825303675@qq.com', '825303675', '2018-03-23', '2018-03-23', '1');
+INSERT INTO `user` VALUES ('4', '111', 'fd45ebc1e1d76bc1fe0ba933e60e9957', '111', '11', '111', '11', '2018-05-02 19:49:36', '2018-05-02 19:57:50', '1');
+INSERT INTO `user` VALUES ('5', '5435', '1ff897e13e91f10f7bb325d99b21bc17', '33333333333', '534', '3453', '4534', '2018-05-02 19:55:57', '2018-05-02 19:56:17', '1');

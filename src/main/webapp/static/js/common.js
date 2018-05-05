@@ -151,6 +151,13 @@ function isDataOk(data,successTip,failTip,noRightTip){
         });
         return true;
     }
+    if(data.code == 1){
+        Ewin.confirm({ title: '提示:',
+            message: "商家名已被占用，请更换一个!",
+            icon:"glyphicon-remove"
+        });
+        return true;
+    }
     if(data.code == 500){
         Ewin.confirm({ title: '提示:',
             message: "加入黑名单成功!",

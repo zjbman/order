@@ -32,6 +32,7 @@
                 <a class='btn btn-info btn-sm' href='<%=request.getContextPath()%>/businessManager/Add.html'
                    onclick='add()'>商家入驻</a>
                 <a class='btn btn-warning btn-sm'  onclick='show()'>查看详情</a>
+                <a class='btn btn-danger btn-sm'  onclick='update()'>修改</a>
                 <a class='btn btn-success btn-sm'  onclick='del()'>删 除</a>
             </div>
         </div>
@@ -39,6 +40,42 @@
 
         <div>
             <table id="table"></table>
+        </div>
+    </div>
+
+    <div class="modal fade" role="dialog" id="win1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="win1title"></h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden"  id="id" name="id" value=""/>
+                    <table id="ctable" class="tab-panal" >
+                        <tr>
+                            <th>商家名：</th>
+                            <td><input id="businessName" name="businessName" type="text" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th>联系人：</th>
+                            <td><input name="contact"  id="contact" type="text" required="required"></td>
+                        </tr>
+                        <tr>
+                            <th>联系方式：</th>
+                            <td><input name="telephone"  id="telephone" type="text" style="width:100%"></td>
+                        </tr>
+                        <tr>
+                            <th>地址：</th>
+                            <td><input name="address"  id="address" type="text" style="width:100%"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"  class='btn btn-danger' data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-success" onclick="save()">保 存</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

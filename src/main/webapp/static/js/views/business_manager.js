@@ -84,6 +84,87 @@ function del() {
     }
 }
 
+function save() {
+
+    var businessName = $('#businessName').val();
+    var contact = $('#contact').val();
+    var telephone = $('#telephone').val();
+    var address = $('#address').val();
+    var id = $('#id').val();
+
+    if (businessName == null || businessName == "" ||
+        contact == null || contact == "" ||
+        telephone == null || telephone == "" ||
+        address == null || address == "") {
+
+        Ewin.confirm({
+            title: "提示",
+            message: "请填写完整信息!"
+        });
+        return false;
+    }
+
+
+    $.ajax({
+        url: rootPath + '/businessManager/Save.html',
+        type: "post",
+        data: {
+            "id": id,
+            'businessName': businessName,
+            'contact': contact,
+            'telephone': telephone,
+            'address': address
+        },
+        dataType: "json",
+        success: function (data) {
+            $('#win1').modal('hide');
+            if (isDataOk(data, "保存成功", data.msg)) {
+                $('#table').bootstrapTable('refresh');
+            }
+        }
+    });
+}
+
+function update() {
+    var row = getSelectRow();
+    if (row) {
+        Winedit(row[0].businessName + "--修改", row[0].id);
+    }
+}
+
+//弹窗
+function Winedit(name, id) {
+    $("#win1title").html(name);
+
+    //修改
+    if (id != "") {
+        $.ajax({
+            url: rootPath + '/businessManager/Find.html',
+            type: "post",
+            data: {"id": id},
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 12) {
+                    Ewin.confirm({
+                        title: "fail",
+                        message: '无权限访问!  ' + data.errorMessage
+                    });
+                    $('#win1').modal('hide');
+                    return false;
+                }
+                $('#id').val(data[0].id);//不能少了给弹窗中的id赋值了
+                $('#businessName').val(data[0].businessName);
+                $('#contact').val(data[0].contact);
+                $('#telephone').val(data[0].telephone);
+                $('#address').val(data[0].address);
+            }
+        });
+    }
+
+    //展示弹窗
+    $('#win1').modal('show');
+}
+
 function creatHighcharts(data) {
 
     var temp2 = data.rows[data.rows.length - 1].datetime;
