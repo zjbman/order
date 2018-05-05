@@ -75,6 +75,13 @@ function update() {
     }
 }
 
+function removeBlacklist() {
+    var row = getSelectRow();
+    if (row != false) {
+        deletFormat(rootPath + '/userManager/RemoveBlacklist.html?id=' + row[0].id);
+    }
+}
+
 function blacklist() {
     var row = getSelectRow();
     if (row != false) {

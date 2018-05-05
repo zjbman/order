@@ -3,7 +3,6 @@ package com.paper.controller.app;
 import com.paper.config.WebParam;
 import com.paper.entity.User;
 import com.paper.service.UserService;
-import com.paper.util.MD5;
 import com.paper.util.StringUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +73,7 @@ public class UserController {
         try {
             User newUser = new User();
             newUser.setUsername(username);
-            newUser.setPassword(MD5.md5(password));
+            newUser.setPassword(password);
             newUser.setEmail(email);
             newUser.setQq(qq);
             newUser.setTelephone(telephone);

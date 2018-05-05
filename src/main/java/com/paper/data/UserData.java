@@ -33,7 +33,11 @@ public class UserData {
         qq = user.getQq();
         createDate = user.getCreateDate();
         updateDate = user.getUpdateDate();
-        state = user.getState() == 1 ? "黑名单账号" : "正常账号";
+        if(user.getState() == null){
+            state = "正常账号";
+        }else {
+            state = user.getState() == 1 ? "黑名单账号" : "正常账号";
+        }
     }
 
     public Integer getId() {

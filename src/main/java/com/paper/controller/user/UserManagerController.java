@@ -53,6 +53,27 @@ public class UserManagerController extends BaseListController<User> {
         return result;
     }
 
+    @RequestMapping("/RemoveBlacklist")
+    public @ResponseBody
+    Map<String,Object> removeBlacklist(Integer id){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        if (id != null) {
+            User user = userService.findById(id);
+            user.setState(0);
+            user.setUpdateDate(format.format(new Date()));
+
+            userService.update(user);
+
+            result.put("code", 500);
+            return result;
+        } else {
+            result.put("code", 501);
+            return result;
+        }
+    }
+
     @RequestMapping("/Blacklist")
     public @ResponseBody
     Map<String, Object> blacklist(Integer id) {
