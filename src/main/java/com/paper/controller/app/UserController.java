@@ -76,6 +76,7 @@ public class UserController {
             newUser.setPassword(password);
             newUser.setEmail(email);
             newUser.setQq(qq);
+            newUser.setMoney(100.0);
             newUser.setTelephone(telephone);
             newUser.setName(name);
             newUser.setState(0);
@@ -95,5 +96,22 @@ public class UserController {
             result.put("msg", "注册失败！");
             return result;
         }
+    }
+
+    @RequestMapping("/Find")
+    public @ResponseBody
+    Map<String,Object> find(String username){
+        logger.info("成功进入查询用户信息接口");
+        com.paper.data.app.UserData data = null;
+
+        if(!StringUtil.isEmpty(username)){
+            User user = userService.findBySQL("select * from user where username = '" + username + "'",true);
+            data = new com.paper.data.app.UserData(user);
+        }
+
+        Map<String,Object> result = new HashMap<String,Object>();
+        result.put("code",200);
+        result.put("msg",data);
+        return result;
     }
 }

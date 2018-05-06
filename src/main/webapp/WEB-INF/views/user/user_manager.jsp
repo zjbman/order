@@ -64,6 +64,10 @@
                             <td><input name="name"  id="name" type="text" required="required"></td>
                         </tr>
                         <tr>
+                            <th>用户余额：</th>
+                            <td><input name="money"  id="money" type="text" required="required"></td>
+                        </tr>
+                        <tr>
                             <th>电话号码：</th>
                             <td><input name="telephone"  id="telephone" type="text" required="required"></td>
                         </tr>

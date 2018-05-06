@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-05-06 14:49:16
+Date: 2018-05-06 16:16:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -525,6 +525,7 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `money` double DEFAULT NULL COMMENT '用户当前拥有的金额',
   `telephone` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `qq` varchar(255) DEFAULT NULL,
@@ -534,17 +535,19 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `UK_jhib4legehrm4yscx9t3lirqi` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='这是点菜系统客户端的用户表，区别于点菜系统后台的用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='这是点菜系统客户端的用户表，区别于点菜系统后台的用户表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '用户1', '12580', 'zjbman@sina.com', '825303675', '2018-03-23', '2018-05-06 13:16:14', '0');
-INSERT INTO `user` VALUES ('2', 'zhang', 'd0cd2693b3506677e4c55e91d6365bff', '用户2', '12580', 'jbandxs@sina.com', '825303675', '2018-03-23', '2018-05-06 13:16:26', '0');
-INSERT INTO `user` VALUES ('3', 'kaifa', 'd70c1e5d44de8a9150eb91ecff563578', '用户3', '12580', '825303675@qq.com', '825303675', '2018-03-23', '2018-03-23', null);
-INSERT INTO `user` VALUES ('4', 'saa', '11', 'saa', 'gfdds\n5554\n112', '', '', '2018-05-05 00:51:13', '2018-05-05 00:51:13', '0');
-INSERT INTO `user` VALUES ('6', '1', 'c4ca4238a0b923820dcc509a6f75849b', '1', 'q', '', '', '2018-05-05 01:32:47', '2018-05-05 01:32:47', '0');
-INSERT INTO `user` VALUES ('7', '12', 'c81e728d9d4c2f636f067f89cc14862c', '12', 'w', '', '', '2018-05-05 01:34:00', '2018-05-05 01:34:00', '0');
-INSERT INTO `user` VALUES ('8', '111', '202cb962ac59075b964b07152d234b70', '111', 'qq', '', '', '2018-05-05 02:15:41', '2018-05-05 02:15:41', '0');
-INSERT INTO `user` VALUES ('9', '121', '698d51a19d8a121ce581499d7b701668', '121', 'qqq\n', '', '', '2018-05-05 02:20:20', '2018-05-05 02:20:20', '0');
-INSERT INTO `user` VALUES ('10', '5454', '107030ca685076c0ed5e054e2c3ed940', '5454', '5454', '5454', '5454', '2018-05-05 20:24:44', '2018-05-05 20:24:44', '0');
+INSERT INTO `user` VALUES ('1', 'admin', 'c3284d0f94606de1fd2af172aba15bf3', '用户1', '5345', '12580', 'zjbman@sina.com', '825303675', '2018-03-23', '2018-05-06 15:10:07', '0');
+INSERT INTO `user` VALUES ('2', 'zhang', 'd0cd2693b3506677e4c55e91d6365bff', '用户2', '124', '12580', 'jbandxs@sina.com', '825303675', '2018-03-23', '2018-05-06 15:30:52', '1');
+INSERT INTO `user` VALUES ('3', 'kaifa', 'd70c1e5d44de8a9150eb91ecff563578', '用户3', null, '12580', '825303675@qq.com', '825303675', '2018-03-23', '2018-03-23', null);
+INSERT INTO `user` VALUES ('4', 'saa', '11', 'saa', null, 'gfdds\n5554\n112', '', '', '2018-05-05 00:51:13', '2018-05-05 00:51:13', '0');
+INSERT INTO `user` VALUES ('6', '1', 'c4ca4238a0b923820dcc509a6f75849b', '1', null, 'q', '', '', '2018-05-05 01:32:47', '2018-05-05 01:32:47', '0');
+INSERT INTO `user` VALUES ('7', '12', 'c81e728d9d4c2f636f067f89cc14862c', '12', null, 'w', '', '', '2018-05-05 01:34:00', '2018-05-05 01:34:00', '0');
+INSERT INTO `user` VALUES ('8', '111', '202cb962ac59075b964b07152d234b70', '111', null, 'qq', '', '', '2018-05-05 02:15:41', '2018-05-05 02:15:41', '0');
+INSERT INTO `user` VALUES ('9', '121', '698d51a19d8a121ce581499d7b701668', '121', null, 'qqq\n', '', '', '2018-05-05 02:20:20', '2018-05-05 02:20:20', '0');
+INSERT INTO `user` VALUES ('10', '5454', '107030ca685076c0ed5e054e2c3ed940', '5454', null, '5454', '5454', '5454', '2018-05-05 20:24:44', '2018-05-05 20:24:44', '0');
+INSERT INTO `user` VALUES ('11', 'asd', 'c4ca4238a0b923820dcc509a6f75849b', 'asd', '100', 'q', '', '', '2018-05-06 15:04:03', '2018-05-06 15:04:03', '0');
+INSERT INTO `user` VALUES ('12', 'zhang1', '322659af98161462aea23463d0c85468', '用户2', '100', '12580', 'jbandxs@sina.com', '825303675', '2018-05-06 15:10:29', '2018-05-06 15:10:29', '0');

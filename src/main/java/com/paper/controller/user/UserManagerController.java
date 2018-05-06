@@ -113,7 +113,7 @@ public class UserManagerController extends BaseListController<User> {
     @RequestMapping(value = "/Save")
     public @ResponseBody
     Map<String, Object> save(Integer id, String username, String password, String name,
-                             String telephone,String email,String qq) {
+                             Double money,String telephone,String email,String qq) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             User user = new User();
@@ -138,6 +138,11 @@ public class UserManagerController extends BaseListController<User> {
             }
             if (!StringUtil.isEmpty(name)) {
                 user.setName(name);
+            }
+            if(money != null){
+                user.setMoney(money);
+            }else{
+                user.setMoney(100.0);//默认给他100
             }
             if (!StringUtil.isEmpty(telephone)) {
                 user.setTelephone(telephone);

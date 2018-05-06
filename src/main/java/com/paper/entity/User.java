@@ -21,6 +21,9 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "money")
+    private Double money;
+
     @Column(name = "telephone")
     private String telephone;
 
@@ -39,6 +42,14 @@ public class User {
     /** 1加入了黑名单 0正常账号*/
     @Column(name = "state")
     private Integer state;
+
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
+    }
 
     public Integer getState() {
         return state;

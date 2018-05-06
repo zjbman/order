@@ -52,6 +52,7 @@ $(function () {
             {field: 'username', title: '用户账号', sortable: true},
             {field: 'password', title: '账号密码', sortable: true},
             {field: 'name', title: '用户昵称', sortable: true},
+            {field: 'money', title: '用户余额', sortable: true},
             {field: 'telephone', title: '电话号码', sortable: true},
             {field: 'email', title: 'Email', sortable: true},
             {field: 'qq', title: 'QQ', sortable: true},
@@ -115,6 +116,7 @@ function Winedit(name, id) {
                 $('#username').val(data[0].username);
                 $('#password').val(data[0].password);
                 $('#name').val(data[0].name);
+                $('#money').val(data[0].money);
                 $('#telephone').val(data[0].telephone);
                 $('#email').val(data[0].email);
                 $('#qq').val(data[0].qq);
@@ -137,6 +139,7 @@ function save() {
     var username = $('#username').val();
     var password = $('#password').val();
     var name = $('#name').val();
+    var money = $('#money').val();
     var telephone = $('#telephone').val();
     var email = $('#email').val();
     var qq = $('#qq').val();
@@ -164,6 +167,7 @@ function save() {
             'username': username,
             'password': password,
             'name': name,
+            'money': money,
             'telephone': telephone,
             'email': email,
             'qq': qq

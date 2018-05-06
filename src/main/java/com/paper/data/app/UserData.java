@@ -1,4 +1,4 @@
-package com.paper.data;
+package com.paper.data.app;
 
 import com.paper.entity.User;
 
@@ -19,10 +19,6 @@ public class UserData {
 
     private String qq;
 
-    private String createDate;
-
-    private String updateDate;
-
     private String state;
 
     public UserData(User user){
@@ -34,8 +30,6 @@ public class UserData {
         telephone = user.getTelephone();
         email = user.getEmail();
         qq = user.getQq();
-        createDate = user.getCreateDate();
-        updateDate = user.getUpdateDate();
         if(user.getState() == null){
             state = "正常账号";
         }else {
@@ -43,12 +37,12 @@ public class UserData {
         }
     }
 
-    public Double getMoney() {
-        return money;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMoney(Double money) {
-        this.money = money;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getId() {
@@ -67,20 +61,20 @@ public class UserData {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
     }
 
     public String getTelephone() {
@@ -105,22 +99,6 @@ public class UserData {
 
     public void setQq(String qq) {
         this.qq = qq;
-    }
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
     }
 
     public String getState() {
