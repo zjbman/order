@@ -3,6 +3,7 @@ package com.paper.controller.app;
 import com.paper.config.WebParam;
 import com.paper.entity.User;
 import com.paper.service.UserService;
+import com.paper.util.MD5;
 import com.paper.util.StringUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,14 +105,82 @@ public class UserController {
         logger.info("成功进入查询用户信息接口");
         com.paper.data.app.UserData data = null;
 
+        Map<String,Object> result = new HashMap<String,Object>();
+
         if(!StringUtil.isEmpty(username)){
             User user = userService.findBySQL("select * from user where username = '" + username + "'",true);
             data = new com.paper.data.app.UserData(user);
+
+            if(user == null){
+                result.put("code",-100);
+                result.put("msg",data);
+                return result;
+            }
         }
 
-        Map<String,Object> result = new HashMap<String,Object>();
         result.put("code",200);
         result.put("msg",data);
+        return result;
+    }
+
+    @RequestMapping("/Change")
+    public @ResponseBody
+    Map<String,Object> change(String username,String newPassword){
+        logger.info("成功进入修改密码接口");
+        Map<String,Object> result = new HashMap<String,Object>();
+        if(!StringUtil.isEmpty(username) && !StringUtil.isEmpty(newPassword)){
+            User user = userService.findBySQL("select * from user where username = '" + username + "'", true);
+
+            if(user == null){
+                result.put("code",-100);
+                result.put("msg","用户不存在，修改密码失败！");
+                return result;
+            }
+
+            userService.executeSQL("update user set password = '" + MD5.md5(newPassword) + "'" +
+                    " where username = '" + username + "'");
+        }else{
+            result.put("code",-100);
+            result.put("msg","没有要修改的内容!");
+            return result;
+        }
+
+
+        result.put("code",200);
+        result.put("msg","修改密码成功!");
+        return result;
+    }
+
+
+    @RequestMapping("/Update")
+    public @ResponseBody
+    Map<String,Object> update(String username,String name,String telephone,String email,String qq){
+        logger.info("成功进入修改个人信息接口");
+        Map<String,Object> result = new HashMap<String,Object>();
+
+        if(!StringUtil.isEmpty(username)){
+            User user = userService.findBySQL("select * from user where username = '" + username + "'", true);
+
+            if(user == null){
+                result.put("code",-100);
+                result.put("msg","用户不存在，修改个人信息失败！");
+                return result;
+            }
+
+            userService.executeSQL("update user set name = '" + name + "'," +
+                    " telephone = '" + telephone + "'," +
+                    " email = '" + email + "'," +
+                    " qq = '" + qq + "'" +
+                    " where username = '" + username + "'");
+        }else{
+            result.put("code",-100);
+            result.put("msg","没有要修改的内容!");
+            return result;
+        }
+
+
+        result.put("code",200);
+        result.put("msg","修改个人信息成功!");
         return result;
     }
 }
