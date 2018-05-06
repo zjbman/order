@@ -165,6 +165,13 @@ function isDataOk(data,successTip,failTip,noRightTip){
         });
         return true;
     }
+    if(data.code == 502){
+        Ewin.confirm({ title: '提示:',
+            message: "取消黑名单成功!",
+            icon:"glyphicon-remove"
+        });
+        return true;
+    }
     if(data.code == 501){
         Ewin.confirm({ title: '提示:',
             message: "加入黑名单失败!",

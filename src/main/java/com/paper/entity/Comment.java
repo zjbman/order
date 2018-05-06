@@ -28,7 +28,7 @@ public class Comment  implements java.io.Serializable {
     /** 外键，关联用户信息表的id*/
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private TUser user_id;
+    private User user_id;
 
     /** 外键，关联商家表的id*/
     @ManyToOne(fetch = FetchType.EAGER)
@@ -59,11 +59,11 @@ public class Comment  implements java.io.Serializable {
         this.date = date;
     }
 
-    public TUser getUser_id() {
+    public User getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(TUser user_id) {
+    public void setUser_id(User user_id) {
         this.user_id = user_id;
     }
 

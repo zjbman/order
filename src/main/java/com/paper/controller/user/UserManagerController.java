@@ -66,7 +66,7 @@ public class UserManagerController extends BaseListController<User> {
 
             userService.update(user);
 
-            result.put("code", 500);
+            result.put("code", 502);
             return result;
         } else {
             result.put("code", 501);

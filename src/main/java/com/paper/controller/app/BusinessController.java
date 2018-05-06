@@ -31,7 +31,7 @@ public class BusinessController extends BaseListController<Business> {
     @RequestMapping("/List")
     public @ResponseBody
     Map<String, Object> list(Integer index) {
-        logger.info("index === " + index);
+        logger.info("成功进入商家接口 index === " + index);
         List<BusineesData> data = new ArrayList<BusineesData>();
 
         if (index == null){
