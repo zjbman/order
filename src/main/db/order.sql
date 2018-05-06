@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-05-06 16:16:25
+Date: 2018-05-07 01:38:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,6 +55,31 @@ INSERT INTO `business` VALUES ('19', '福建名饺', '嘉文', '13015547895', '�
 INSERT INTO `business` VALUES ('20', '化隆牛肉面', '华龙', '15521545782', '嘉应学院西门', '2018-05-05 14:28:18', '/pic/20.jpg');
 
 -- ----------------------------
+-- Table structure for cart
+-- ----------------------------
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `business_id` int(11) DEFAULT NULL,
+  `goods_id` int(11) DEFAULT NULL,
+  `goods_number` int(11) DEFAULT NULL,
+  `date` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `business_id` (`business_id`),
+  KEY `goods_id` (`goods_id`),
+  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`),
+  CONSTRAINT `cart_ibfk_3` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cart
+-- ----------------------------
+INSERT INTO `cart` VALUES ('1', '2', '1', '2', '3', '2018-05-07 00:51:13');
+
+-- ----------------------------
 -- Table structure for comment
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
@@ -69,7 +94,7 @@ CREATE TABLE `comment` (
   KEY `FK_mxoojfj9tmy8088avf57mpm02` (`user_id`),
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`),
   CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of comment
@@ -114,6 +139,12 @@ INSERT INTO `comment` VALUES ('37', '真好吃啊', '2018-04-22', '1', '19');
 INSERT INTO `comment` VALUES ('38', '味道很不错', '2018-04-22', '2', '19');
 INSERT INTO `comment` VALUES ('39', '真好吃啊', '2018-04-22', '1', '20');
 INSERT INTO `comment` VALUES ('40', '物美价廉', '2018-04-22', '2', '20');
+INSERT INTO `comment` VALUES ('41', 'wq', '2018-05-07 00:35:06', '2', '8');
+INSERT INTO `comment` VALUES ('42', '我的最爱', '2018-05-07 00:35:16', '2', '8');
+INSERT INTO `comment` VALUES ('43', '哇哈哈哈  下次再来', '2018-05-07 00:35:39', '2', '15');
+INSERT INTO `comment` VALUES ('44', '我又来啦', '2018-05-07 00:35:53', '2', '15');
+INSERT INTO `comment` VALUES ('45', '哇哈哈', '2018-05-07 00:42:36', '2', '3');
+INSERT INTO `comment` VALUES ('46', '哇哈哈', '2018-05-07 00:42:37', '2', '3');
 
 -- ----------------------------
 -- Table structure for goods
@@ -541,12 +572,12 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', 'c3284d0f94606de1fd2af172aba15bf3', '用户1', '5345', '12580', 'zjbman@sina.com', '825303675', '2018-03-23', '2018-05-06 15:10:07', '0');
-INSERT INTO `user` VALUES ('2', 'zhang', 'd0cd2693b3506677e4c55e91d6365bff', '用户2', '124', '12580', 'jbandxs@sina.com', '825303675', '2018-03-23', '2018-05-06 15:30:52', '1');
+INSERT INTO `user` VALUES ('2', 'zhang', 'd0cd2693b3506677e4c55e91d6365bff', '豪哥', '124', '12580', 'jbandxs@sina.com', '8253036751', '2018-03-23', '2018-05-06 15:30:52', '1');
 INSERT INTO `user` VALUES ('3', 'kaifa', 'd70c1e5d44de8a9150eb91ecff563578', '用户3', null, '12580', '825303675@qq.com', '825303675', '2018-03-23', '2018-03-23', null);
 INSERT INTO `user` VALUES ('4', 'saa', '11', 'saa', null, 'gfdds\n5554\n112', '', '', '2018-05-05 00:51:13', '2018-05-05 00:51:13', '0');
 INSERT INTO `user` VALUES ('6', '1', 'c4ca4238a0b923820dcc509a6f75849b', '1', null, 'q', '', '', '2018-05-05 01:32:47', '2018-05-05 01:32:47', '0');
 INSERT INTO `user` VALUES ('7', '12', 'c81e728d9d4c2f636f067f89cc14862c', '12', null, 'w', '', '', '2018-05-05 01:34:00', '2018-05-05 01:34:00', '0');
-INSERT INTO `user` VALUES ('8', '111', '202cb962ac59075b964b07152d234b70', '111', null, 'qq', '', '', '2018-05-05 02:15:41', '2018-05-05 02:15:41', '0');
+INSERT INTO `user` VALUES ('8', '111', 'aaaa', 'aaa', null, 'qq', '', '', '2018-05-05 02:15:41', '2018-05-05 02:15:41', '0');
 INSERT INTO `user` VALUES ('9', '121', '698d51a19d8a121ce581499d7b701668', '121', null, 'qqq\n', '', '', '2018-05-05 02:20:20', '2018-05-05 02:20:20', '0');
 INSERT INTO `user` VALUES ('10', '5454', '107030ca685076c0ed5e054e2c3ed940', '5454', null, '5454', '5454', '5454', '2018-05-05 20:24:44', '2018-05-05 20:24:44', '0');
 INSERT INTO `user` VALUES ('11', 'asd', 'c4ca4238a0b923820dcc509a6f75849b', 'asd', '100', 'q', '', '', '2018-05-06 15:04:03', '2018-05-06 15:04:03', '0');

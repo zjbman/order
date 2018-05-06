@@ -33,7 +33,8 @@
                    onclick='add()'>商家入驻</a>
                 <a class='btn btn-warning btn-sm'  onclick='show()'>查看详情</a>
                 <a class='btn btn-danger btn-sm'  onclick='update()'>修改</a>
-                <a class='btn btn-success btn-sm'  onclick='del()'>删 除</a>
+                <%-- 有太多的表关联着商家表了，所以很多时候的删除是无效的，所以注释了--%>
+                <%--<a class='btn btn-success btn-sm'  onclick='del()'>删 除</a>--%>
             </div>
         </div>
         <div id="container" style="min-width:40px;height:40px"></div>
