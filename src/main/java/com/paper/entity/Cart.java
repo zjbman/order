@@ -22,7 +22,7 @@ public class Cart implements java.io.Serializable {
     @JoinColumn(name = "business_id")
     private Business business;
 
-    /** json数组格式，[{goodsId：1,goodsNumber:2},{goodsId:3,goodsNumber:1}]*/
+    /** json数组格式，[{"goodsId":95,"goodsNumber":1},{"goodsId":94,"goodsNumber":1},{"goodsId":96,"goodsNumber":2}]*/
     @Column(name = "goods")
     private String goods;
 

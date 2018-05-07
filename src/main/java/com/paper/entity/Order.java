@@ -41,7 +41,7 @@ public class Order  implements java.io.Serializable {
     private Business business;
 
 
-    /** 以Json形式存储，包含商品id和相应的数量 {id:1,number:2}*/
+    /** 以Json形式存储，包含商品id和相应的数量 [{"goodsId":95,"goodsNumber":1},{"goodsId":94,"goodsNumber":1},{"goodsId":96,"goodsNumber":2}]*/
     @Column(name = "goods")
     private String goods;
 
