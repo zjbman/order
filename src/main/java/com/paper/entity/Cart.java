@@ -22,17 +22,12 @@ public class Cart implements java.io.Serializable {
     @JoinColumn(name = "business_id")
     private Business business;
 
-    /** 外键，关联商品表的id*/
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "goods_id")
-    private Goods goods;
-
-    @Column(name = "goods_number")
-    private int goodsNumber;
+    /** json数组格式，[{goodsId：1,goodsNumber:2},{goodsId:3,goodsNumber:1}]*/
+    @Column(name = "goods")
+    private String goods;
 
     @Column(name = "date")
     private String date;
-
 
     public Integer getId() {
         return id;
@@ -58,20 +53,12 @@ public class Cart implements java.io.Serializable {
         this.business = business;
     }
 
-    public Goods getGoods() {
+    public String getGoods() {
         return goods;
     }
 
-    public void setGoods(Goods goods) {
+    public void setGoods(String goods) {
         this.goods = goods;
-    }
-
-    public int getGoodsNumber() {
-        return goodsNumber;
-    }
-
-    public void setGoodsNumber(int goodsNumber) {
-        this.goodsNumber = goodsNumber;
     }
 
     public String getDate() {

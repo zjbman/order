@@ -7,12 +7,22 @@ public class BusineesData {
     private String businessName;
     private String picture;
     private String address;
+    private String telephone;
 
     public BusineesData(Business business){
         this.id = business.getId();
         this.businessName = business.getName();
         this.picture = business.getPicture();
         this.address = business.getAddress();
+        this.telephone = business.getTelephone();
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public Integer getId() {
