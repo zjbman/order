@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-05-08 02:22:11
+Date: 2018-05-08 18:20:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -69,20 +69,13 @@ CREATE TABLE `cart` (
   KEY `business_id` (`business_id`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO `cart` VALUES ('5', '2', '8', '[{\"goodsId\":95,\"goodsNumber\":1},{\"goodsId\":94,\"goodsNumber\":1},{\"goodsId\":96,\"goodsNumber\":2}]', '2018-05-07 18:28:12');
-INSERT INTO `cart` VALUES ('6', '2', '8', '[{\"goodsId\":95,\"goodsNumber\":1},{\"goodsId\":94,\"goodsNumber\":1},{\"goodsId\":96,\"goodsNumber\":2}]', '2018-05-07 18:28:52');
-INSERT INTO `cart` VALUES ('7', '2', '3', '[{\"goodsId\":34,\"goodsNumber\":3},{\"goodsId\":38,\"goodsNumber\":3},{\"goodsId\":31,\"goodsNumber\":1},{\"goodsId\":32,\"goodsNumber\":1}]', '2018-05-07 18:30:08');
-INSERT INTO `cart` VALUES ('8', '2', '15', '[{\"goodsId\":184,\"goodsNumber\":2},{\"goodsId\":183,\"goodsNumber\":1},{\"goodsId\":182,\"goodsNumber\":1}]', '2018-05-07 18:34:35');
-INSERT INTO `cart` VALUES ('9', '2', '8', '[{\"goodsId\":95,\"goodsNumber\":2},{\"goodsId\":96,\"goodsNumber\":3}]', '2018-05-07 19:32:41');
-INSERT INTO `cart` VALUES ('10', '2', '1', '[{\"goodsId\":17,\"goodsNumber\":5}]', '2018-05-07 19:34:08');
-INSERT INTO `cart` VALUES ('11', '2', '1', '[{\"goodsId\":18,\"goodsNumber\":3},{\"goodsId\":20,\"goodsNumber\":3},{\"goodsId\":19,\"goodsNumber\":3}]', '2018-05-07 22:38:04');
-INSERT INTO `cart` VALUES ('12', '2', '8', '[{\"goodsId\":94,\"goodsNumber\":4}]', '2018-05-07 23:38:48');
-INSERT INTO `cart` VALUES ('13', '2', '8', '[{\"goodsId\":98,\"goodsNumber\":1},{\"goodsId\":96,\"goodsNumber\":1}]', '2018-05-08 01:36:22');
+INSERT INTO `cart` VALUES ('20', '2', '2', '[{\"goodsId\":2,\"goodsNumber\":2}]', '2018-05-08 15:54:11');
+INSERT INTO `cart` VALUES ('21', '2', '2', '[{\"goodsId\":2,\"goodsNumber\":4}]', '2018-05-08 16:30:32');
 
 -- ----------------------------
 -- Table structure for comment
@@ -393,13 +386,13 @@ INSERT INTO `goods` VALUES ('249', '鸡蛋凉拌面', '好吃又便宜', '15.00'
 INSERT INTO `goods` VALUES ('250', '红烧鸡块盖浇面', '好吃又便宜', '15.00', '20', '/pic/p45.jpg', '2018-05-05 14:49:28', '2018-05-05 14:49:28');
 
 -- ----------------------------
--- Table structure for order
+-- Table structure for q_order
 -- ----------------------------
-DROP TABLE IF EXISTS `order`;
-CREATE TABLE `order` (
+DROP TABLE IF EXISTS `q_order`;
+CREATE TABLE `q_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL COMMENT '外键，关联用户信息表的id',
-  `price` decimal(10,2) DEFAULT NULL COMMENT '该订单总价钱',
+  `price` double(20,2) DEFAULT NULL COMMENT '该订单总价钱',
   `date` varchar(255) DEFAULT NULL COMMENT '下单日期',
   `address` varchar(255) DEFAULT NULL COMMENT '配送地址',
   `business_id` int(11) DEFAULT NULL COMMENT '外键，关联商家表的id',
@@ -409,14 +402,16 @@ CREATE TABLE `order` (
   PRIMARY KEY (`id`),
   KEY `business_id` (`business_id`),
   KEY `order_ibfk_1` (`user_id`),
-  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `order_ibfk_2` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  CONSTRAINT `q_order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `q_order_ibfk_2` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of order
+-- Records of q_order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', '1', '200.00', '2018-04-22', '广州市', '1', '[{\"goodsId\":95,\"goodsNumber\":1},{\"goodsId\":94,\"goodsNumber\":1},{\"goodsId\":96,\"goodsNumber\":2}]', '15555555555', '微辣哦');
+INSERT INTO `q_order` VALUES ('1', '2', '200.00', '2018-04-22', '广州市', '1', '[{\"goodsId\":95,\"goodsNumber\":1},{\"goodsId\":94,\"goodsNumber\":1},{\"goodsId\":96,\"goodsNumber\":2}]', '15555555555', '微辣哦');
+INSERT INTO `q_order` VALUES ('2', '2', '20.00', '2018-05-08 16:29:39', '吧', '2', '[{\"goodsId\":2,\"goodsNumber\":2,\"businessId\":2}]', '2', '');
+INSERT INTO `q_order` VALUES ('3', '2', '20.00', '2018-05-08 16:30:57', '查', '2', '[{\"goodsId\":2,\"goodsNumber\":4,\"businessId\":2}]', '33', '封');
 
 -- ----------------------------
 -- Table structure for t_group
@@ -547,7 +542,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', 'c3284d0f94606de1fd2af172aba15bf3', '用户1', '5345', '12580', 'zjbman@sina.com', '825303675', '2018-03-23', '2018-05-06 15:10:07', '0');
-INSERT INTO `user` VALUES ('2', 'zhang', 'd0cd2693b3506677e4c55e91d6365bff', '豪哥111', '124', '12580', 'jbandxs@sina.com', '8253036751', '2018-03-23', '2018-05-06 15:30:52', '1');
+INSERT INTO `user` VALUES ('2', 'zhang', 'd0cd2693b3506677e4c55e91d6365bff', '豪哥111', '20', '12580', 'jbandxs@sina.com', '8253036751', '2018-03-23', '2018-05-06 15:30:52', '1');
 INSERT INTO `user` VALUES ('3', 'kaifa', 'd70c1e5d44de8a9150eb91ecff563578', '用户3', null, '12580', '825303675@qq.com', '825303675', '2018-03-23', '2018-03-23', null);
 INSERT INTO `user` VALUES ('4', 'saa', '11', 'saa', null, 'gfdds\n5554\n112', '', '', '2018-05-05 00:51:13', '2018-05-05 00:51:13', '0');
 INSERT INTO `user` VALUES ('6', '1', 'c4ca4238a0b923820dcc509a6f75849b', '1', null, 'q', '', '', '2018-05-05 01:32:47', '2018-05-05 01:32:47', '0');
