@@ -7,7 +7,6 @@ import com.paper.data.app.OrderData;
 import com.paper.entity.Business;
 import com.paper.entity.Order;
 import com.paper.entity.User;
-import com.paper.service.GoodsService;
 import com.paper.service.OrderService;
 import com.paper.service.UserService;
 import com.paper.util.StringUtil;
@@ -26,7 +25,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/order")
-public class OrderController extends BaseListController<Order>{
+public class OrderController extends BaseListController<Order> {
     private Logger logger = Logger.getLogger(OrderController.class);
 
     @Autowired
@@ -37,115 +36,107 @@ public class OrderController extends BaseListController<Order>{
     @Qualifier("userService")
     private UserService userService;
 
-    @Autowired
-    @Qualifier("goodsService")
-    private GoodsService goodsService;
 
     @RequestMapping("/List")
     public @ResponseBody
-    Map<String,Object> list(String username){
+    Map<String, Object> list(String username) {
         logger.info("成功进入订单列表接口");
 
         List<OrderData> data = new ArrayList<OrderData>();
-        Map<String,Object> result = new HashMap<String,Object>();
+        Map<String, Object> result = new HashMap<String, Object>();
 
-        if(StringUtil.isEmpty(username)){
-            result.put("code",-100);
-            result.put("msg",data);
+        if (StringUtil.isEmpty(username)) {
+            result.put("code", -100);
+            result.put("msg", data);
             return result;
         }
 
-        User user = userService.findBySQL("select * from user where username = '" + username + "'",true);
-        if(user == null){
-            result.put("code",-100);
-            result.put("msg",data);
+        User user = userService.findBySQL("select * from user where username = '" + username + "'", true);
+        if (user == null) {
+            result.put("code", -100);
+            result.put("msg", data);
             return result;
         }
 
-        list = orderService.findAllSQL("select * from `order` where user_id = " + user.getId());
-        if(list == null || list.size() <= 0){
-            result.put("code",-100);
-            result.put("msg",data);
+        list = orderService.findAllSQL("select * from q_order where user_id = " + user.getId());
+        if (list == null || list.size() <= 0) {
+            result.put("code", 101);
+            result.put("msg", data);
             return result;
         }
 
-        for(Order order : list){
-            data.add(new OrderData(order,user,goodsService));
+        for (Order order : list) {
+            data.add(new OrderData(order));
         }
 
-        result.put("code",200);
-        result.put("msg",data);
+        result.put("code", 200);
+        result.put("msg", data);
         return result;
     }
 
     @RequestMapping("/Save")
     public @ResponseBody
-    Map<String,Object> save(String username,String address,String telephone,String remark,
-                            Integer businessId,String goodsList,Double price){
+    Map<String, Object> save(String username, String address, String telephone, String remark,
+                             String goodsList, Double price) {
         logger.info("成功进入下单接口");
+        Map<String, Object> result = new HashMap<String, Object>();
 
-        Map<String,Object> result = new HashMap<String,Object>();
-
-        if(StringUtil.isEmpty(username) || StringUtil.isEmpty(address) || StringUtil.isEmpty(telephone) ||
-                businessId == null || StringUtil.isEmpty(goodsList) || price == null){
-            result.put("code",-100);
-            result.put("msg","下单失败!");
-            return result;
-        }
-
-        JSONObject jsonObject = JSONObject.parseObject(goodsList);
-        boolean containsKey = jsonObject.containsKey("goodsList");
-        if(!containsKey){
+        if (StringUtil.isEmpty(username) || StringUtil.isEmpty(address) || StringUtil.isEmpty(telephone) ||
+                StringUtil.isEmpty(goodsList) || price == null) {
             result.put("code", -100);
             result.put("msg", "下单失败!");
             return result;
         }
 
-        JSONArray jsonArray = (JSONArray) jsonObject.get("goodsList");
-
-        if(jsonArray == null || jsonArray.size() <= 0){
+        JSONArray jsonArray = JSONArray.parseArray(goodsList);
+        if (jsonArray == null || jsonArray.size() <= 0) {
             result.put("code", -100);
             result.put("msg", "下单失败!");
             return result;
         }
 
-        User user = userService.findBySQL("select * from user where username = '" +username + "'",true);
-        if(user == null){
-            result.put("code",-100);
-            result.put("msg","下单失败!");
+        User user = userService.findBySQL("select * from user where username = '" + username + "'", true);
+        if (user == null) {
+            result.put("code", -100);
+            result.put("msg", "下单失败!");
             return result;
         }
 
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+            Integer businessId = jsonObject.getInteger("businessId");
 
-        Order order = new Order();
-        order.setUser(user);
-        order.setAddress(address);
-        Business business = new Business();
-        business.setId(businessId);
-        order.setBusiness(business);
-        order.setPrice(price);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        order.setDate(format.format(new Date()));
-        order.setRemark(remark);
-        order.setTelephone(telephone);
-        order.setGoods(jsonArray.toString());
 
-        try {
-            orderService.save(order);
+            Order order = new Order();
+            order.setUser(user);
+            order.setAddress(address);
+            Business business = new Business();
+            business.setId(businessId);
+            order.setBusiness(business);
+            order.setPrice(price);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            order.setDate(format.format(new Date()));
+            order.setRemark(remark);
+            order.setTelephone(telephone);
+            order.setGoods(jsonArray.toString());
+
+            try {
+                orderService.save(order);
 
             /* 同时从用户余额中减去花费的金钱*/
-            user.setMoney(user.getMoney() - price);
-            userService.update(user);
+                user.setMoney(user.getMoney() - price);
+                userService.update(user);
 
-            result.put("code",200);
-            result.put("msg","成功下单!");
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
 
-            result.put("code",-100);
-            result.put("msg","下单失败!");
-            return result;
+                result.put("code", -100);
+                result.put("msg", "下单失败!");
+                return result;
+            }
         }
+        result.put("code", 200);
+        result.put("msg", "成功下单!");
+        return result;
     }
 }

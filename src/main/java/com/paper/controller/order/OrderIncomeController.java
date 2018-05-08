@@ -1,7 +1,6 @@
 package com.paper.controller.order;
 
 import com.paper.controller.base.BaseListController;
-import com.paper.data.OrderData;
 import com.paper.data.OrderIncomeData;
 import com.paper.entity.Order;
 import com.paper.service.OrderService;
@@ -36,7 +35,7 @@ public class OrderIncomeController extends BaseListController<Order>{
     Map<String,Object> list(){
         List<OrderIncomeData> data = new ArrayList<OrderIncomeData>();
 
-        list = orderService.findAllSQL("select * from `order`");
+        list = orderService.findAllSQL("select * from q_order");
 
         Map<String,OrderIncomeData> orderIncomeDataMap = new HashMap<String, OrderIncomeData>();
 

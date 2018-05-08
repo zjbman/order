@@ -4,6 +4,7 @@ import com.paper.controller.base.BaseListController;
 import com.paper.data.app.GoodsData;
 import com.paper.entity.Goods;
 import com.paper.service.GoodsService;
+import com.paper.util.StringUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,6 +29,41 @@ public class GoodsController extends BaseListController<Goods> {
     @Qualifier("goodsService")
     private GoodsService goodsService;
 
+
+    @RequestMapping("/GetMany")
+    public @ResponseBody
+    Map<String,Object> findMany(String ids){
+        logger.info("成功进入商品Many接口 ids === " + ids);
+        Map<String,Object> result = new HashMap<String,Object>();
+        List<GoodsData> data = new ArrayList<GoodsData>();
+
+        if(StringUtil.isEmpty(ids)){
+            result.put("code",-100);
+            result.put("msg",data);
+            return result;
+        }
+
+        String[] split = ids.split(",");
+        for(String idStr : split){
+            try {
+                int id = Integer.parseInt(idStr);
+                list = goodsService.findAllSQL("select * from goods where business_id = " + id);
+                for(Goods goods : list){
+                    data.add(new GoodsData(goods));
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+                result.put("code",-100);
+                result.put("msg",data);
+                return result;
+            }
+        }
+
+        result.put("code",200);
+        result.put("msg",data);
+        return result;
+    }
 
     @RequestMapping("/Get")
     public @ResponseBody

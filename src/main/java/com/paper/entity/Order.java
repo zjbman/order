@@ -11,7 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @date 2018/4/22 17:28
  **/
 @Entity
-@Table(name = "order")
+@Table(name = "q_order")
 public class Order  implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)

@@ -43,7 +43,7 @@ public class OrderListController extends BaseListController<Order>{
     Map<String,Object> list(){
         List<OrderData> data = new ArrayList<OrderData>();
 
-        list = orderService.findAllSQL("select * from `order`");
+        list = orderService.findAllSQL("select * from q_order");
 
         if(list != null) {
             for (Order order : list) {

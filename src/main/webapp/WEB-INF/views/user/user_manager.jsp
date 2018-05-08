@@ -30,8 +30,8 @@
             <div style='margin-right: 10px; text-align: right; margin-top: -10px; margin-bottom: 10px;'>
                 <a class='btn btn-info btn-sm' onclick='add()'>新 增</a>
                 <a class='btn btn-warning btn-sm' onclick='update()'>修 改</a>
-                <a class='btn btn-danger btn-sm'  onclick='blacklist()'>加入黑名单</a>
-                <a class='btn btn-success btn-sm'  onclick='removeBlacklist()'>取消黑名单</a>
+                <%--<a class='btn btn-danger btn-sm'  onclick='blacklist()'>加入黑名单</a>--%>
+                <%--<a class='btn btn-success btn-sm'  onclick='removeBlacklist()'>取消黑名单</a>--%>
             </div>
         </div>
         <div id="container" style="min-width:40px;height:40px"></div>

@@ -49,13 +49,13 @@ public class OrderData {
         for(int i = 0;i < jsonArray.size();i ++){
 
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            Integer businessId = jsonObject.containsKey("id") ? jsonObject.getInteger("id") : null;
+            Integer businessId = jsonObject.containsKey("goodsId") ? jsonObject.getInteger("goodsId") : null;
             if(businessId != null){
                 Goods goods = goodsService.findById(businessId);
                 sb.append(goods.getName());
                 sb.append(" : ");
             }
-            Integer number = jsonObject.containsKey("number") ? jsonObject.getInteger("number") : null;
+            Integer number = jsonObject.containsKey("goodsNumber") ? jsonObject.getInteger("goodsNumber") : null;
             if(number != null){
                 sb.append(number);
             }
